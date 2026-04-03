@@ -21,7 +21,6 @@ export default function LoginPage() {
         try {
             const res = await api.post('/auth/login', formData);
 
-            // Token aur User Data save karna
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
 
