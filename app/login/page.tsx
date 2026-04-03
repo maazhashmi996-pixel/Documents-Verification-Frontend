@@ -26,7 +26,6 @@ export default function LoginPage() {
 
             toast.success("Welcome back! Redirecting...");
 
-            // Role-based redirection with a small delay for smooth feel
             setTimeout(() => {
                 if (res.data.user.role === 'admin') {
                     router.push('/admin');
