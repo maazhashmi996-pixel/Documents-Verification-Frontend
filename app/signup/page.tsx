@@ -168,15 +168,14 @@ export default function SignupPage() {
     );
 }
 
-// Role Selector Button Component
 function RoleButton({ active, onClick, icon, label }: any) {
     return (
         <button
             type="button"
             onClick={onClick}
             className={`flex flex-col items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 ${active
-                    ? 'bg-white text-blue-600 shadow-md scale-100'
-                    : 'text-slate-400 hover:text-slate-600 grayscale'
+                ? 'bg-white text-blue-600 shadow-md scale-100'
+                : 'text-slate-400 hover:text-slate-600 grayscale'
                 }`}
         >
             {icon}
