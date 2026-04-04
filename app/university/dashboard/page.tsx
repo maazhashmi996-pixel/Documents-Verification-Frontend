@@ -69,7 +69,6 @@ export default function UniversityDashboard() {
                     </button>
                 </div>
 
-                {/* STATS GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                     <UniStatCard title="Total Enrollments" value={stats?.total || '0'} icon={<UsersIcon />} color="indigo" />
                     <UniStatCard title="Active Students" value={stats?.active || '0'} icon={<CheckIcon />} color="emerald" />
