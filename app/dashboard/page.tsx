@@ -150,8 +150,8 @@ export default function StudentDashboard() {
                                     <td className="px-8 py-5">{doc.institute}</td>
                                     <td className="px-8 py-5">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${doc.status === 'Verified' ? 'bg-green-100 text-green-700' :
-                                                doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
-                                                    'bg-amber-100 text-amber-700'
+                                            doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
+                                                'bg-amber-100 text-amber-700'
                                             }`}>
                                             {doc.status}
                                         </span>
@@ -180,7 +180,6 @@ export default function StudentDashboard() {
     );
 }
 
-// Reusable StatCard Component
 function StatCard({ title, value, icon, bgColor, desc }: any) {
     return (
         <div className="bg-white border border-slate-200 p-7 rounded-[2rem] flex flex-col gap-4 shadow-sm hover:shadow-md transition-all group">

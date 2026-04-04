@@ -57,7 +57,6 @@ export default function UniversityDashboard() {
                 </button>
             </aside>
 
-            {/* MAIN CONTENT AREA */}
             <main className="flex-1 p-4 md:p-8 overflow-y-auto">
                 {/* TOP HEADER */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
