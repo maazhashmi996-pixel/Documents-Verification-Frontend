@@ -52,7 +52,6 @@ export default function UploadModal({ isOpen, onClose }: Props) {
                 </div>
 
                 <form onSubmit={handleUpload} className="p-8 space-y-6">
-                    {/* Document Title */}
                     <div className="space-y-2">
                         <label className="text-sm font-bold text-slate-700 ml-1">Document Title</label>
                         <input
