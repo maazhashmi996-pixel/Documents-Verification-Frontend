@@ -38,7 +38,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </div>
             </aside>
 
-            {/* Main Content */}
             <main className="flex-1 flex flex-col">
                 {/* Top Navbar */}
                 <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-end px-8 gap-4">
