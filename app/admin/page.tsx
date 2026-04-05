@@ -50,7 +50,6 @@ export default function AdminVIPDashboard() {
     const handleDelete = async (id: string) => {
         if (!window.confirm("Are you sure? This will permanently remove the user.")) return;
         try {
-            // Path corrected to match backend update: /admin/user/:id
             await api.delete(`/admin/user/${id}`);
             toast.success("User Removed");
             fetchAdminData();
