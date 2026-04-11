@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, Clock, AlertCircle, FileUp, MoreVertical, LogOut } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { CheckCircle, Clock, AlertCircle, FileUp, MoreVertical, LogOut, Loader2 } from 'lucide-react';
 import UploadModal from '@/Components/UploadModal';
 import api from '@/lib/api';
 import { toast, Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation'; // Logout navigation ke liye
+import { useRouter } from 'next/navigation';
 
 // Types for better TS support
 interface Document {
@@ -18,72 +18,106 @@ interface Document {
 export default function StudentDashboard() {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSyncing, setIsSyncing] = useState(false);
     const [documents, setDocuments] = useState<Document[]>([]);
+    const [userData, setUserData] = useState({
+        isPaid: false,
+        isApproved: false,
+        name: "Student",
+        paymentStatus: "None"
+    });
     const [stats, setStats] = useState({
         total: 0,
         pending: 0,
         verified: 0,
-        isPaid: false
     });
 
     // Logout Function
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Ya jo bhi apka token key hai
+        localStorage.removeItem('token');
         toast.success("Logged out successfully");
         router.push('/login');
     };
 
-    // Backend se data lane ka function
-    const fetchDashboardData = async () => {
+    // --- FETCH DATA FUNCTION (Optimized) ---
+    const fetchDashboardData = useCallback(async () => {
+        setIsSyncing(true);
         try {
             const res = await api.get('/student/dashboard');
 
             const fetchedDocs = res.data?.documents || [];
-            const userData = res.data?.user || {};
+            const user = res.data || {};
 
+            // Update User Data
+            setUserData({
+                isPaid: user.isPaid || false,
+                isApproved: user.isApproved || false,
+                name: user.name || "Maaz",
+                paymentStatus: user.paymentDetails?.paymentStatus || "None"
+            });
+
+            // Update Documents
             setDocuments(fetchedDocs);
+
+            // Update Stats
             setStats({
                 total: fetchedDocs.length,
                 pending: fetchedDocs.filter((d: any) => d.status === 'Pending').length,
                 verified: fetchedDocs.filter((d: any) => d.status === 'Verified').length,
-                isPaid: userData?.isPaid || false
             });
+
+            return res.data; // Return for promise handling in modal
         } catch (err) {
             console.error("Data fetch error", err);
             toast.error("Failed to sync dashboard stats");
+        } finally {
+            setIsSyncing(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchDashboardData();
-    }, []);
+    }, [fetchDashboardData]);
+
+    // Helper to determine Payment Value for StatCard
+    const getPaymentDisplayStatus = () => {
+        if (userData.isPaid) return "Verified";
+        if (userData.paymentStatus === "Pending") return "Processing";
+        if (userData.paymentStatus === "Rejected") return "Declined";
+        return "Unpaid";
+    };
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <Toaster position="top-right" />
 
-            {/* Upload Modal Component */}
+            {/* --- MODAL WITH SYNC LOGIC --- */}
             <UploadModal
                 isOpen={isModalOpen}
-                onClose={() => {
-                    setIsModalOpen(false);
-                    fetchDashboardData();
+                onClose={() => setIsModalOpen(false)}
+                userStatus={{
+                    isPaid: userData.isPaid,
+                    isApproved: userData.isApproved,
+                    paymentStatus: userData.paymentStatus
                 }}
+                refreshData={fetchDashboardData}
             />
 
             {/* Welcome Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                        Welcome Back, Maaz! 👋
-                    </h2>
-                    <p className="text-slate-500 font-medium mt-1">
-                        Manage your documents and track verification status.
-                    </p>
+                <div className="flex items-center gap-4">
+                    <div>
+                        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                            Welcome Back, {userData.name}! 👋
+                        </h2>
+                        <p className="text-slate-500 font-medium mt-1">
+                            Manage your documents and track verification status.
+                        </p>
+                    </div>
+                    {isSyncing && <Loader2 size={20} className="animate-spin text-indigo-500 mt-1" />}
                 </div>
 
                 <div className="flex items-center gap-3">
-                    {/* Logout Button */}
                     <button
                         onClick={handleLogout}
                         className="bg-white border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-100 hover:bg-red-50 p-3 rounded-2xl transition-all active:scale-95 group shadow-sm"
@@ -120,10 +154,10 @@ export default function StudentDashboard() {
                 />
                 <StatCard
                     title="Payment Status"
-                    value={stats.isPaid ? "Paid" : "Unpaid"}
-                    icon={<AlertCircle className={stats.isPaid ? "text-green-500" : "text-red-500"} />}
-                    bgColor={stats.isPaid ? "bg-green-50" : "bg-red-50"}
-                    desc={stats.isPaid ? "Full access granted" : "Pending fee clearance"}
+                    value={getPaymentDisplayStatus()}
+                    icon={<AlertCircle className={userData.isPaid ? "text-green-500" : userData.paymentStatus === 'Pending' ? "text-amber-500" : "text-red-500"} />}
+                    bgColor={userData.isPaid ? "bg-green-50" : userData.paymentStatus === 'Pending' ? "bg-amber-50" : "bg-red-50"}
+                    desc={userData.isPaid ? "Full access granted" : userData.paymentStatus === 'Pending' ? "Awaiting admin confirmation" : "Fee clearance required"}
                 />
             </div>
 
@@ -150,8 +184,8 @@ export default function StudentDashboard() {
                                     <td className="px-8 py-5">{doc.institute}</td>
                                     <td className="px-8 py-5">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${doc.status === 'Verified' ? 'bg-green-100 text-green-700' :
-                                            doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
-                                                'bg-amber-100 text-amber-700'
+                                                doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
+                                                    'bg-amber-100 text-amber-700'
                                             }`}>
                                             {doc.status}
                                         </span>
@@ -167,7 +201,7 @@ export default function StudentDashboard() {
                                     <td colSpan={4} className="px-8 py-20 text-center text-slate-400 italic">
                                         <div className="flex flex-col items-center gap-3">
                                             <AlertCircle size={40} className="opacity-20" />
-                                            <p className="font-bold text-sm uppercase tracking-widest">No intelligence found</p>
+                                            <p className="font-bold text-sm uppercase tracking-widest">No documents found</p>
                                         </div>
                                     </td>
                                 </tr>
