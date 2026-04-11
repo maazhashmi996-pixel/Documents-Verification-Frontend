@@ -26,11 +26,18 @@ export default function LoginPage() {
 
             toast.success("Welcome back! Redirecting...");
 
+            // --- ROLE BASED REDIRECT LOGIC ---
             setTimeout(() => {
-                if (res.data.user.role === 'admin') {
+                const role = res.data.user.role;
+
+                if (role === 'admin') {
                     router.push('/admin');
+                } else if (role === 'university') {
+                    router.push('/university/dashboard'); // University ka apna dashboard
+                } else if (role === 'student') {
+                    router.push('/student-dashboard'); // Student ka apna dashboard
                 } else {
-                    router.push('/dashboard');
+                    toast.error("Unauthorized role. Please contact support.");
                 }
             }, 1000);
 

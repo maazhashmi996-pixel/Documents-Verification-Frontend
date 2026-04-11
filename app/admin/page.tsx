@@ -15,20 +15,27 @@ export default function AdminVIPDashboard() {
     const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<any>(null);
-    const [users, setUsers] = useState([]); // Changed from students to users for clarity
+    const [users, setUsers] = useState<any[]>([]);
 
     const fetchAdminData = useCallback(async () => {
         setLoading(true);
         try {
-            // Updated Endpoint: Dono roles ka data fetch hoga
+            // Note: Make sure your backend endpoint `/admin/students` returns BOTH roles 
+            // OR change it to `/admin/users` if you have that endpoint.
             const [statsRes, usersRes] = await Promise.all([
                 api.get(`/admin/stats?period=${filter}`),
                 api.get(`/admin/students?search=${searchQuery}`)
             ]);
+
             setStats(statsRes.data);
-            setUsers(usersRes.data);
+
+            // Flexible state setting: checks if data is in a 'users' property or is the root array
+            const userData = usersRes.data?.users || usersRes.data || [];
+            setUsers(userData);
+
         } catch (err) {
-            toast.error("Sync Failed");
+            console.error("Fetch Error:", err);
+            toast.error("Sync Failed with Server");
         } finally {
             setLoading(false);
         }
@@ -68,7 +75,7 @@ export default function AdminVIPDashboard() {
         <div className="w-full min-h-screen bg-[#f4f7fe] p-4 md:p-8 font-sans text-slate-900">
             <Toaster position="top-right" />
 
-            {/* FULL WIDTH HEADER */}
+            {/* HEADER */}
             <div className="w-full mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
                     <div className="h-14 w-14 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-indigo-200">
@@ -108,7 +115,7 @@ export default function AdminVIPDashboard() {
                 </div>
             </div>
 
-            {/* WIDE STATS CARDS */}
+            {/* STATS */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
                 <StatCard title="Total Students" value={stats?.totalStudents} icon={<Users size={22} />} color="blue" loading={loading} />
                 <StatCard title="Partner Universities" value={stats?.totalUniversities} icon={<School size={22} />} color="indigo" loading={loading} />
@@ -116,9 +123,9 @@ export default function AdminVIPDashboard() {
                 <StatCard title="Pending Approvals" value={stats?.pendingApprovals} icon={<Clock size={22} />} color="amber" loading={loading} />
             </div>
 
-            {/* FULL SCREEN TABLE CONTAINER */}
+            {/* DATA TABLE */}
             <div className="bg-white border border-slate-100 rounded-[2.5rem] shadow-xl shadow-slate-200/50 overflow-hidden">
-                <div className="px-10 py-8 border-b border-slate-50 flex flex-col xl:flex-row justify-between items-center gap-6 bg-gradient-to-r from-white to-slate-50/50">
+                <div className="px-10 py-8 border-b border-slate-100 flex flex-col xl:flex-row justify-between items-center gap-6 bg-gradient-to-r from-white to-slate-50/50">
                     <div className="flex items-center gap-4">
                         <div className="h-10 w-1 rounded-full bg-indigo-600" />
                         <div>
@@ -154,12 +161,12 @@ export default function AdminVIPDashboard() {
                                 <tr key={u._id} className="hover:bg-indigo-50/20 transition-all group">
                                     <td className="px-10 py-6">
                                         <div className="flex items-center gap-4">
-                                            <div className={`h-14 w-14 rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center font-black text-lg transition-all shadow-sm ${u.role === 'university' ? 'group-hover:bg-amber-600 group-hover:text-white' : 'group-hover:bg-indigo-600 group-hover:text-white'}`}>
-                                                {u.role === 'university' ? <Building2 size={24} /> : u.name[0]}
+                                            <div className={`h-14 w-14 rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center font-black text-lg transition-all shadow-sm ${u.role === 'university' ? 'bg-amber-50 text-amber-600 border-amber-100 group-hover:bg-amber-600 group-hover:text-white' : 'bg-indigo-50 text-indigo-600 border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white'}`}>
+                                                {u.role === 'university' ? <Building2 size={24} /> : (u.name ? u.name[0] : '?')}
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="font-black text-slate-900 text-lg group-hover:text-indigo-600 transition-colors">
-                                                    {u.name}
+                                                    {u.role === 'university' ? u.instituteName : u.name}
                                                 </span>
                                                 <span className="text-xs text-slate-400 font-bold tracking-tight">{u.email}</span>
                                             </div>
@@ -171,8 +178,8 @@ export default function AdminVIPDashboard() {
                                                 {u.role === 'university' ? <School size={12} /> : <GraduationCap size={12} />}
                                                 {u.role}
                                             </div>
-                                            <span className="font-mono text-xs font-bold text-slate-500">
-                                                {u.role === 'university' ? u.instituteName : u.passportNumber || 'N/A'}
+                                            <span className="font-mono text-[10px] font-bold text-slate-500 uppercase">
+                                                {u.role === 'university' ? `ID: ${u._id?.slice(-6)}` : (u.passportNumber || 'N/A')}
                                             </span>
                                         </div>
                                     </td>
@@ -201,10 +208,17 @@ export default function AdminVIPDashboard() {
                             )) : (
                                 <tr>
                                     <td colSpan={4} className="py-32 text-center">
-                                        <div className="flex flex-col items-center gap-2 text-slate-300">
-                                            <Search size={48} className="opacity-20" />
-                                            <span className="text-sm font-black uppercase tracking-[0.3em]">No Intelligence Found</span>
-                                        </div>
+                                        {loading ? (
+                                            <div className="flex flex-col items-center gap-4 text-indigo-600">
+                                                <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                                                <span className="text-xs font-black uppercase tracking-[0.2em]">Syncing Intelligence...</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-col items-center gap-2 text-slate-300">
+                                                <Search size={48} className="opacity-20" />
+                                                <span className="text-sm font-black uppercase tracking-[0.3em]">No Users Found</span>
+                                            </div>
+                                        )}
                                     </td>
                                 </tr>
                             )}
