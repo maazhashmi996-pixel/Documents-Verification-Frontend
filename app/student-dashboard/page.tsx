@@ -1,17 +1,19 @@
 "use client";
 import React, { useState, useEffect, useCallback } from 'react';
-import { CheckCircle, Clock, AlertCircle, FileUp, MoreVertical, LogOut, Loader2 } from 'lucide-react';
+import { CheckCircle, Clock, AlertCircle, FileUp, MoreVertical, LogOut, Loader2, FileText, MessageSquare } from 'lucide-react';
 import UploadModal from '@/Components/UploadModal';
 import api from '@/lib/api';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-// Types for better TS support
+// Types updated to include admin data
 interface Document {
     _id: string;
     title: string;
     institute: string;
     status: string;
+    adminRemarks?: string;
+    adminSlip?: string; // URL for the slip uploaded by admin
     createdAt: string;
 }
 
@@ -32,23 +34,19 @@ export default function StudentDashboard() {
         verified: 0,
     });
 
-    // Logout Function
     const handleLogout = () => {
         localStorage.removeItem('token');
         toast.success("Logged out successfully");
         router.push('/login');
     };
 
-    // --- FETCH DATA FUNCTION (Optimized) ---
     const fetchDashboardData = useCallback(async () => {
         setIsSyncing(true);
         try {
             const res = await api.get('/student/dashboard');
-
             const fetchedDocs = res.data?.documents || [];
             const user = res.data || {};
 
-            // Update User Data
             setUserData({
                 isPaid: user.isPaid || false,
                 isApproved: user.isApproved || false,
@@ -56,17 +54,15 @@ export default function StudentDashboard() {
                 paymentStatus: user.paymentDetails?.paymentStatus || "None"
             });
 
-            // Update Documents
             setDocuments(fetchedDocs);
 
-            // Update Stats
             setStats({
                 total: fetchedDocs.length,
                 pending: fetchedDocs.filter((d: any) => d.status === 'Pending').length,
                 verified: fetchedDocs.filter((d: any) => d.status === 'Verified').length,
             });
 
-            return res.data; // Return for promise handling in modal
+            return res.data;
         } catch (err) {
             console.error("Data fetch error", err);
             toast.error("Failed to sync dashboard stats");
@@ -79,7 +75,6 @@ export default function StudentDashboard() {
         fetchDashboardData();
     }, [fetchDashboardData]);
 
-    // Helper to determine Payment Value for StatCard
     const getPaymentDisplayStatus = () => {
         if (userData.isPaid) return "Verified";
         if (userData.paymentStatus === "Pending") return "Processing";
@@ -91,7 +86,6 @@ export default function StudentDashboard() {
         <div className="space-y-8 animate-in fade-in duration-500">
             <Toaster position="top-right" />
 
-            {/* --- MODAL WITH SYNC LOGIC --- */}
             <UploadModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -161,7 +155,7 @@ export default function StudentDashboard() {
                 />
             </div>
 
-            {/* Recent Documents Table */}
+            {/* Documents Table with Admin Fields */}
             <div className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
                 <div className="p-8 border-b border-slate-100 flex justify-between items-center">
                     <h3 className="font-bold text-slate-900 text-xl tracking-tight">Recent Documents</h3>
@@ -171,24 +165,51 @@ export default function StudentDashboard() {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-50/50 text-slate-400 text-xs uppercase tracking-[0.1em]">
-                                <th className="px-8 py-4 font-bold">Document Name</th>
-                                <th className="px-8 py-4 font-bold">Institute</th>
+                                <th className="px-8 py-4 font-bold">Document Details</th>
                                 <th className="px-8 py-4 font-bold">Status</th>
+                                <th className="px-8 py-4 font-bold">Admin Remarks</th>
+                                <th className="px-8 py-4 font-bold">Admin Slip</th>
                                 <th className="px-8 py-4 font-bold text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-slate-600 font-medium">
                             {documents.length > 0 ? documents.map((doc) => (
                                 <tr key={doc._id} className="border-b border-slate-50 hover:bg-slate-50/30 transition-colors group">
-                                    <td className="px-8 py-5 text-slate-900 font-bold">{doc.title}</td>
-                                    <td className="px-8 py-5">{doc.institute}</td>
+                                    <td className="px-8 py-5">
+                                        <div className="flex flex-col">
+                                            <span className="text-slate-900 font-bold">{doc.title}</span>
+                                            <span className="text-xs text-slate-400">{doc.institute}</span>
+                                        </div>
+                                    </td>
                                     <td className="px-8 py-5">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${doc.status === 'Verified' ? 'bg-green-100 text-green-700' :
-                                                doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
-                                                    'bg-amber-100 text-amber-700'
+                                            doc.status === 'Rejected' ? 'bg-red-100 text-red-700' :
+                                                'bg-amber-100 text-amber-700'
                                             }`}>
                                             {doc.status}
                                         </span>
+                                    </td>
+                                    <td className="px-8 py-5">
+                                        <div className="flex items-center gap-2 max-w-[200px]">
+                                            <MessageSquare size={14} className="text-slate-300 flex-shrink-0" />
+                                            <span className="text-sm truncate italic text-slate-500">
+                                                {doc.adminRemarks || "No remarks yet"}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td className="px-8 py-5">
+                                        {doc.adminSlip ? (
+                                            <a
+                                                href={doc.adminSlip}
+                                                target="_blank"
+                                                className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-indigo-100 transition-all border border-indigo-100"
+                                            >
+                                                <FileText size={14} />
+                                                View Slip
+                                            </a>
+                                        ) : (
+                                            <span className="text-xs text-slate-300 font-bold uppercase tracking-tighter">Not Uploaded</span>
+                                        )}
                                     </td>
                                     <td className="px-8 py-5 text-right">
                                         <button className="text-slate-400 hover:text-slate-900 transition-colors p-2 hover:bg-slate-100 rounded-lg">
@@ -198,7 +219,7 @@ export default function StudentDashboard() {
                                 </tr>
                             )) : (
                                 <tr>
-                                    <td colSpan={4} className="px-8 py-20 text-center text-slate-400 italic">
+                                    <td colSpan={5} className="px-8 py-20 text-center text-slate-400 italic">
                                         <div className="flex flex-col items-center gap-3">
                                             <AlertCircle size={40} className="opacity-20" />
                                             <p className="font-bold text-sm uppercase tracking-widest">No documents found</p>
