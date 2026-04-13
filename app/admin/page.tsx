@@ -57,6 +57,7 @@ export default function AdminVIPDashboard() {
         formData.append('docIndex', docIndex.toString());
 
         try {
+            // Updated to use studentId as docId context for the endpoint
             await api.put(`/admin/verify-single-doc/${studentId}`, formData);
             toast.success("Document Verified Successfully!");
             fetchAdminData();
@@ -150,11 +151,9 @@ export default function AdminVIPDashboard() {
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {/* FIX: Check for documents array inside the student object */}
                                         {student.documents && student.documents.length > 0 ? (
                                             student.documents.map((doc: any, idx: number) => {
                                                 const docKey = `${student._id}-${idx}`;
-                                                // Handling both String and Object types of document entries
                                                 const fileUrl = typeof doc === 'string' ? doc : doc.url || doc.fileUrl;
                                                 const docTitle = doc.title || `Document ${idx + 1}`;
                                                 const docInstitute = doc.institute || "Not Specified";
@@ -180,7 +179,6 @@ export default function AdminVIPDashboard() {
                                                             </button>
                                                         </div>
 
-                                                        {/* Document Preview Placeholder */}
                                                         <div
                                                             onClick={() => window.open(fileUrl, '_blank')}
                                                             className="h-32 w-full bg-white mb-4 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden cursor-pointer hover:border-indigo-300 transition-colors"
@@ -219,7 +217,6 @@ export default function AdminVIPDashboard() {
                                                                 </button>
                                                             </div>
 
-                                                            {/* Verification Status Badge */}
                                                             {(doc.isVerified || doc.status === 'Verified') && (
                                                                 <div className="flex items-center justify-center gap-1 mt-2 py-1 bg-emerald-50 rounded-lg">
                                                                     <CheckCircle2 size={12} className="text-emerald-600" />
