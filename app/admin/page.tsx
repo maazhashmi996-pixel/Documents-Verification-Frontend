@@ -248,7 +248,6 @@ export default function AdminVIPDashboard() {
     );
 }
 
-// --- SHARED COMPONENTS ---
 
 function Header({ activeTab }: { activeTab: string }) {
     return (
