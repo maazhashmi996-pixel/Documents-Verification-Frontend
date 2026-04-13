@@ -123,7 +123,6 @@ export default function SignupPage() {
                         </div>
                     )}
 
-                    {/* Password Input with Toggle */}
                     <div className="space-y-1">
                         <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Password</label>
                         <div className="relative">
