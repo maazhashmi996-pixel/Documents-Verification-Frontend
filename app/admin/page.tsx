@@ -52,17 +52,22 @@ export default function AdminVIPDashboard() {
 
         setProcessingId(docKey);
         const formData = new FormData();
+
+        // Field name matches backend upload.single('attestedDoc')
         formData.append('attestedDoc', attestFiles[docKey]);
         formData.append('remarks', remarks[docKey] || "Verified and Attested");
         formData.append('docIndex', docIndex.toString());
 
         try {
-            // Updated to use studentId as docId context for the endpoint
-            await api.put(`/admin/verify-single-doc/${studentId}`, formData);
+            // Using studentId as the docId context for the backend route
+            await api.put(`/admin/verify-single-doc/${studentId}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
             toast.success("Document Verified Successfully!");
             fetchAdminData();
-        } catch (err) {
-            toast.error("Verification failed for this document");
+        } catch (err: any) {
+            console.error("Verification error:", err.response?.data);
+            toast.error(err.response?.data?.message || "Verification failed");
         } finally {
             setProcessingId(null);
         }

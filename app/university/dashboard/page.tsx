@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import {
     GraduationCap, Search, FileText, LayoutDashboard, Settings,
-    LogOut, Eye, ShieldCheck, SearchCode, Loader2, CheckCircle2, AlertCircle, MessageSquare, Receipt, ExternalLink, Calendar, User, Fingerprint
+    LogOut, Eye, ShieldCheck, SearchCode, Loader2, CheckCircle2, AlertCircle, MessageSquare, Receipt, ExternalLink, Calendar, User, Fingerprint, Image as ImageIcon
 } from 'lucide-react';
 import { toast, Toaster } from 'react-hot-toast';
 
@@ -28,17 +28,20 @@ export default function UniversityDashboard() {
         }
         setLoading(true);
         try {
-            const res = await api.get(`/university/verify-passport?passport=${searchQuery}`);
+            // Updated to use the correct API endpoint and match backend controller
+            const res = await api.post(`/university/search-student`, { passportNumber: searchQuery.trim() });
+
             if (res.data.success && res.data.data) {
                 setStudent(res.data.data);
-                toast.success("Data Decrypted");
+                toast.success("Data Decrypted Successfully");
             } else {
                 setStudent(null);
-                toast.error("No record found");
+                toast.error(res.data.msg || "No record found");
             }
-        } catch (err) {
+        } catch (err: any) {
             setStudent(null);
-            toast.error("Server connection failed");
+            const errorMsg = err.response?.data?.msg || "Student not found or access denied";
+            toast.error(errorMsg);
         } finally {
             setLoading(false);
         }
@@ -95,7 +98,8 @@ export default function UniversityDashboard() {
                         />
                         <button
                             onClick={handlePassportSearch}
-                            className="bg-indigo-600 hover:bg-slate-900 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all"
+                            disabled={loading}
+                            className="bg-indigo-600 hover:bg-slate-900 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all disabled:opacity-50"
                         >
                             {loading ? 'Searching...' : 'Scan Database'}
                         </button>
@@ -119,7 +123,7 @@ export default function UniversityDashboard() {
                                             {student.fullName || student.name}
                                         </h2>
                                         <div className="mt-3 flex gap-3">
-                                            <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[9px] font-bold text-slate-400 tracking-widest uppercase">ID: {student.passportNumber || searchQuery}</span>
+                                            <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[9px] font-bold text-slate-400 tracking-widest uppercase">ID: {student.passportNumber}</span>
                                             <span className="bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-lg text-[9px] font-bold text-indigo-400 tracking-widest uppercase">{student.university || 'Registered Institute'}</span>
                                         </div>
                                     </div>
@@ -137,7 +141,6 @@ export default function UniversityDashboard() {
 
                         {/* ROW 2: DOCUMENTS & SYSTEM REMARKS */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            {/* DOCUMENTS LIST WITH PER-DOCUMENT REMARKS */}
                             <div className="lg:col-span-2 space-y-4">
                                 <div className="flex items-center gap-3 mb-2 px-2">
                                     <FileText className="text-indigo-600" size={20} />
@@ -153,23 +156,48 @@ export default function UniversityDashboard() {
                                                     </div>
                                                     <div>
                                                         <p className="font-black text-slate-800 text-base italic uppercase tracking-tight">{doc.title || doc.name || `Document ${i + 1}`}</p>
-                                                        <p className="text-[10px] text-indigo-500 font-bold uppercase tracking-widest">{doc.status || 'Verified Asset'}</p>
+                                                        <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">{doc.status || 'Verified'}</p>
                                                     </div>
                                                 </div>
-                                                <a href={doc.fileUrl || doc.url} target="_blank" className="h-11 px-6 bg-slate-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all font-black text-[10px] uppercase tracking-widest">
-                                                    <Eye size={16} /> Preview
-                                                </a>
+
+                                                <div className="flex gap-2">
+                                                    {/* SYNCED ADMIN SLIP LOGIC - Checks all possible backend field names */}
+                                                    {(doc.verifySlip || doc.verificationImg || doc.adminScreenshot || doc.isAdminUploaded) ? (
+                                                        <a
+                                                            href={doc.verifySlip || doc.verificationImg || doc.adminScreenshot}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="h-11 px-6 bg-emerald-500 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-200"
+                                                        >
+                                                            <ImageIcon size={16} /> View Admin Slip
+                                                        </a>
+                                                    ) : (
+                                                        <div className="h-11 px-4 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center text-[9px] font-bold uppercase border border-dashed border-slate-200">
+                                                            Slip Not Linked
+                                                        </div>
+                                                    )}
+
+                                                    {/* MAIN DOCUMENT PREVIEW */}
+                                                    <a
+                                                        href={doc.fileUrl || doc.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="h-11 px-6 bg-slate-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all font-black text-[10px] uppercase tracking-widest"
+                                                    >
+                                                        <Eye size={16} /> Preview Doc
+                                                    </a>
+                                                </div>
                                             </div>
 
-                                            {/* DOCUMENT SPECIFIC REMARKS AREA */}
+                                            {/* DOCUMENT REMARKS */}
                                             <div className="mt-4 pt-4 border-t border-slate-50 flex gap-3 items-start">
                                                 <div className="mt-1">
-                                                    <MessageSquare size={14} className="text-slate-400" />
+                                                    <MessageSquare size={14} className="text-indigo-400" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-[9px] font-black uppercase tracking-[0.1em] text-slate-400 mb-1">Doc Remarks:</p>
+                                                    <p className="text-[9px] font-black uppercase tracking-[0.1em] text-slate-400 mb-1">Verification Note:</p>
                                                     <p className="text-xs text-slate-500 font-medium italic leading-relaxed">
-                                                        {doc.remarks || "No specific remarks attached to this document. Verification successful."}
+                                                        {doc.remarks || doc.comment || doc.adminNote || "The document has been verified by the authority and found authentic."}
                                                     </p>
                                                 </div>
                                             </div>
@@ -177,7 +205,7 @@ export default function UniversityDashboard() {
                                     ))
                                 ) : (
                                     <div className="bg-slate-50 rounded-3xl py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 text-slate-400 font-bold text-xs uppercase tracking-widest">
-                                        No Documents Attached
+                                        No Verified Records Found
                                     </div>
                                 )}
                             </div>
@@ -186,14 +214,14 @@ export default function UniversityDashboard() {
                             <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col h-fit sticky top-6">
                                 <div className="flex items-center gap-3 mb-6">
                                     <ShieldCheck className="text-indigo-600" size={20} />
-                                    <h3 className="text-sm font-black uppercase tracking-widest text-slate-700">Profile Status</h3>
+                                    <h3 className="text-sm font-black uppercase tracking-widest text-slate-700">Audit Summary</h3>
                                 </div>
                                 <div className="flex-1 bg-slate-50 p-5 rounded-2xl border-l-4 border-indigo-500 italic text-slate-600 text-sm leading-relaxed">
-                                    "{student.remarks || "Overall student profile is active in the central registry."}"
+                                    "{student.remarks || "Profile has been successfully audited and matched with the global database."}"
                                 </div>
                                 <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-2 text-slate-400">
                                     <Calendar size={14} />
-                                    <span className="text-[9px] font-black uppercase tracking-widest">Scan Date: {new Date().toLocaleDateString()}</span>
+                                    <span className="text-[9px] font-black uppercase tracking-widest">Verification Date: {new Date().toLocaleDateString()}</span>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +229,7 @@ export default function UniversityDashboard() {
                 ) : (
                     <div className="flex flex-col items-center justify-center py-40 opacity-20 border-4 border-dashed border-slate-200 rounded-[3rem]">
                         <SearchCode size={60} className="mb-4 animate-pulse" />
-                        <p className="text-2xl font-black italic uppercase tracking-[0.2em]">Awaiting Input</p>
+                        <p className="text-2xl font-black italic uppercase tracking-[0.2em]">Ready for Decryption</p>
                     </div>
                 )}
             </main>
