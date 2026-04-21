@@ -6,14 +6,14 @@ import api from '@/lib/api';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-// Types updated to include admin data
+// Types updated to match your EXACT database model fields
 interface Document {
     _id: string;
     title: string;
     institute: string;
     status: string;
-    adminRemarks?: string;
-    adminSlip?: string; // URL for the slip uploaded by admin
+    remarks?: string;    // Matches 'remarks' in your Model
+    verifySlip?: string; // Matches 'verifySlip' in your Model
     createdAt: string;
 }
 
@@ -193,15 +193,16 @@ export default function StudentDashboard() {
                                         <div className="flex items-center gap-2 max-w-[200px]">
                                             <MessageSquare size={14} className="text-slate-300 flex-shrink-0" />
                                             <span className="text-sm truncate italic text-slate-500">
-                                                {doc.adminRemarks || "No remarks yet"}
+                                                {doc.remarks || "No remarks yet"}
                                             </span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-5">
-                                        {doc.adminSlip ? (
+                                        {doc.verifySlip ? (
                                             <a
-                                                href={doc.adminSlip}
+                                                href={doc.verifySlip}
                                                 target="_blank"
+                                                rel="noopener noreferrer"
                                                 className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-indigo-100 transition-all border border-indigo-100"
                                             >
                                                 <FileText size={14} />
