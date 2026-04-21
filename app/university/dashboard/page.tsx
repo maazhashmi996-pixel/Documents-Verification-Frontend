@@ -28,10 +28,16 @@ export default function UniversityDashboard() {
         }
         setLoading(true);
         try {
-            // Updated to use the correct API endpoint and match backend controller
             const res = await api.post(`/university/search-student`, { passportNumber: searchQuery.trim() });
 
             if (res.data.success && res.data.data) {
+                // --- DEBUGGING LOGS ---
+                console.log("FULL STUDENT DATA:", res.data.data);
+                if (res.data.data.documents) {
+                    console.log("DOCUMENTS ARRAY:", res.data.data.documents);
+                }
+                // ----------------------
+
                 setStudent(res.data.data);
                 toast.success("Data Decrypted Successfully");
             } else {
@@ -147,62 +153,75 @@ export default function UniversityDashboard() {
                                     <h3 className="text-sm font-black uppercase tracking-widest text-slate-700">Digital Credentials</h3>
                                 </div>
                                 {student.documents && student.documents.length > 0 ? (
-                                    student.documents.map((doc: any, i: number) => (
-                                        <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:border-indigo-200 transition-all group">
-                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-indigo-50 group-hover:text-indigo-500 transition-all">
-                                                        <FileText size={24} />
-                                                    </div>
-                                                    <div>
-                                                        <p className="font-black text-slate-800 text-base italic uppercase tracking-tight">{doc.title || doc.name || `Document ${i + 1}`}</p>
-                                                        <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">{doc.status || 'Verified'}</p>
-                                                    </div>
-                                                </div>
+                                    student.documents.map((doc: any, i: number) => {
 
-                                                <div className="flex gap-2">
-                                                    {/* SYNCED ADMIN SLIP LOGIC - Checks all possible backend field names */}
-                                                    {(doc.verifySlip || doc.verificationImg || doc.adminScreenshot || doc.isAdminUploaded) ? (
+                                        // MASTER SLIP RESOLVER: Checks all potential fields in document and student object
+                                        const adminSlipUrl =
+                                            doc.verifySlip ||
+                                            doc.verificationImg ||
+                                            doc.adminScreenshot ||
+                                            doc.adminSlip ||
+                                            student.adminScreenshot ||
+                                            student.verifySlip ||
+                                            student.slipUrl;
+
+                                        return (
+                                            <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:border-indigo-200 transition-all group">
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-indigo-50 group-hover:text-indigo-500 transition-all">
+                                                            <FileText size={24} />
+                                                        </div>
+                                                        <div>
+                                                            <p className="font-black text-slate-800 text-base italic uppercase tracking-tight">{doc.title || doc.name || `Document ${i + 1}`}</p>
+                                                            <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">{doc.status || 'Verified'}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex gap-2">
+                                                        {/* SYNCED ADMIN SLIP LOGIC */}
+                                                        {adminSlipUrl ? (
+                                                            <a
+                                                                href={adminSlipUrl}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="h-11 px-6 bg-emerald-500 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-200"
+                                                            >
+                                                                <ImageIcon size={16} /> View Admin Slip
+                                                            </a>
+                                                        ) : (
+                                                            <div className="h-11 px-4 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center text-[9px] font-bold uppercase border border-dashed border-slate-200">
+                                                                Slip Not Linked
+                                                            </div>
+                                                        )}
+
+                                                        {/* MAIN DOCUMENT PREVIEW */}
                                                         <a
-                                                            href={doc.verifySlip || doc.verificationImg || doc.adminScreenshot}
+                                                            href={doc.fileUrl || doc.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="h-11 px-6 bg-emerald-500 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-200"
+                                                            className="h-11 px-6 bg-slate-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all font-black text-[10px] uppercase tracking-widest"
                                                         >
-                                                            <ImageIcon size={16} /> View Admin Slip
+                                                            <Eye size={16} /> Preview Doc
                                                         </a>
-                                                    ) : (
-                                                        <div className="h-11 px-4 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center text-[9px] font-bold uppercase border border-dashed border-slate-200">
-                                                            Slip Not Linked
-                                                        </div>
-                                                    )}
+                                                    </div>
+                                                </div>
 
-                                                    {/* MAIN DOCUMENT PREVIEW */}
-                                                    <a
-                                                        href={doc.fileUrl || doc.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="h-11 px-6 bg-slate-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all font-black text-[10px] uppercase tracking-widest"
-                                                    >
-                                                        <Eye size={16} /> Preview Doc
-                                                    </a>
+                                                {/* DOCUMENT REMARKS */}
+                                                <div className="mt-4 pt-4 border-t border-slate-50 flex gap-3 items-start">
+                                                    <div className="mt-1">
+                                                        <MessageSquare size={14} className="text-indigo-400" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[9px] font-black uppercase tracking-[0.1em] text-slate-400 mb-1">Verification Note:</p>
+                                                        <p className="text-xs text-slate-500 font-medium italic leading-relaxed">
+                                                            {doc.remarks || doc.comment || doc.adminNote || "The document has been verified by the authority and found authentic."}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            {/* DOCUMENT REMARKS */}
-                                            <div className="mt-4 pt-4 border-t border-slate-50 flex gap-3 items-start">
-                                                <div className="mt-1">
-                                                    <MessageSquare size={14} className="text-indigo-400" />
-                                                </div>
-                                                <div>
-                                                    <p className="text-[9px] font-black uppercase tracking-[0.1em] text-slate-400 mb-1">Verification Note:</p>
-                                                    <p className="text-xs text-slate-500 font-medium italic leading-relaxed">
-                                                        {doc.remarks || doc.comment || doc.adminNote || "The document has been verified by the authority and found authentic."}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
+                                        );
+                                    })
                                 ) : (
                                     <div className="bg-slate-50 rounded-3xl py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 text-slate-400 font-bold text-xs uppercase tracking-widest">
                                         No Verified Records Found
@@ -217,7 +236,7 @@ export default function UniversityDashboard() {
                                     <h3 className="text-sm font-black uppercase tracking-widest text-slate-700">Audit Summary</h3>
                                 </div>
                                 <div className="flex-1 bg-slate-50 p-5 rounded-2xl border-l-4 border-indigo-500 italic text-slate-600 text-sm leading-relaxed">
-                                    "{student.remarks || "Profile has been successfully audited and matched with the global database."}"
+                                    "{student.remarks || "Overall student profile is active in the central registry."}"
                                 </div>
                                 <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-2 text-slate-400">
                                     <Calendar size={14} />
