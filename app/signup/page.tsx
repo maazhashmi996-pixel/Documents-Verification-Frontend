@@ -5,18 +5,19 @@ import { useRouter } from 'next/navigation';
 import { toast, Toaster } from 'react-hot-toast';
 import {
     User, Mail, Lock, Contact2, ArrowRight,
-    ShieldCheck, GraduationCap, School, Eye, EyeOff
+    ShieldCheck, GraduationCap, School, Eye, EyeOff, Phone
 } from 'lucide-react';
 
 export default function SignupPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState('student');
-    const [showPassword, setShowPassword] = useState(false); // Password Toggle State
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         password: '',
         passportNumber: '',
         role: 'student'
@@ -24,7 +25,13 @@ export default function SignupPage() {
 
     const handleRoleChange = (newRole: string) => {
         setRole(newRole);
-        setFormData({ ...formData, role: newRole });
+        // Resetting role-specific fields when switching roles
+        setFormData({
+            ...formData,
+            role: newRole,
+            phone: newRole === 'student' ? formData.phone : '',
+            passportNumber: newRole === 'student' ? formData.passportNumber : ''
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +60,7 @@ export default function SignupPage() {
                     <p className="text-slate-500 font-bold uppercase text-xs tracking-[0.2em]">Select your account type</p>
                 </div>
 
-                {/* VIP Role Selector */}
+                {/* Role Selector */}
                 <div className="grid grid-cols-3 gap-3 mb-10 p-1.5 bg-slate-100 rounded-2xl border border-slate-200">
                     <RoleButton
                         active={role === 'student'}
@@ -91,7 +98,7 @@ export default function SignupPage() {
                         </div>
                     </div>
 
-                    {/* Email */}
+                    {/* Email Address */}
                     <div className="space-y-1">
                         <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Email Address</label>
                         <div className="relative">
@@ -106,23 +113,42 @@ export default function SignupPage() {
                         </div>
                     </div>
 
-                    {/* Passport Number - Only for Students */}
+                    {/* Conditional Fields: Only for Students */}
                     {role === 'student' && (
-                        <div className="space-y-1 animate-in slide-in-from-top-2 duration-300">
-                            <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Passport Number</label>
-                            <div className="relative">
-                                <Contact2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 h-5 w-5" />
-                                <input
-                                    type="text"
-                                    placeholder="ABC123456"
-                                    required
-                                    className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-4 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-bold uppercase"
-                                    onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
-                                />
+                        <>
+                            {/* Phone Number */}
+                            <div className="space-y-1 animate-in slide-in-from-top-2 duration-300">
+                                <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Phone Number</label>
+                                <div className="relative">
+                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 h-5 w-5" />
+                                    <input
+                                        type="tel"
+                                        placeholder="+92 300 1234567"
+                                        required
+                                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-4 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-bold"
+                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                    />
+                                </div>
                             </div>
-                        </div>
+
+                            {/* Passport Number */}
+                            <div className="space-y-1 animate-in slide-in-from-top-2 duration-300">
+                                <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Passport Number</label>
+                                <div className="relative">
+                                    <Contact2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 h-5 w-5" />
+                                    <input
+                                        type="text"
+                                        placeholder="ABC123456"
+                                        required
+                                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-4 py-4 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-bold uppercase"
+                                        onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+                        </>
                     )}
 
+                    {/* Password */}
                     <div className="space-y-1">
                         <label className="text-xs font-black text-slate-400 uppercase ml-1 tracking-widest">Password</label>
                         <div className="relative">
@@ -134,7 +160,6 @@ export default function SignupPage() {
                                 className="w-full bg-slate-50 border border-slate-200 text-slate-900 pl-12 pr-12 py-4 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all font-bold"
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             />
-                            {/* Eye Button */}
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
