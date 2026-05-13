@@ -25,7 +25,6 @@ export default function SignupPage() {
 
     const handleRoleChange = (newRole: string) => {
         setRole(newRole);
-        // Resetting role-specific fields when switching roles
         setFormData({
             ...formData,
             role: newRole,
