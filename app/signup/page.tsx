@@ -25,7 +25,6 @@ export default function SignupPage() {
 
     const handleRoleChange = (newRole: string) => {
         setRole(newRole);
-        // Resetting role-specific fields when switching roles
         setFormData({
             ...formData,
             role: newRole,
@@ -38,7 +37,7 @@ export default function SignupPage() {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await api.post('/auth/signup', formData);
+            const response = await api.post('/api/auth/signup', formData);
             toast.success(response.data.msg || "Signup Successful!");
             setTimeout(() => router.push('/login'), 2000);
         } catch (err: any) {
