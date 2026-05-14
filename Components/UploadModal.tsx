@@ -44,7 +44,7 @@ export default function UploadModal({ isOpen, onClose, userStatus, refreshData }
         formData.append('institute', institute);
 
         try {
-            await api.post('/student/upload', formData, {
+            await api.post('/api/student/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
