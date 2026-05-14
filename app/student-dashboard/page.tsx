@@ -47,7 +47,7 @@ export default function StudentDashboard() {
     const fetchDashboardData = useCallback(async () => {
         setIsSyncing(true);
         try {
-            const res = await api.get('/student/dashboard');
+            const res = await api.get('/api/student/dashboard');
             const fetchedDocs = res.data?.documents || [];
             const user = res.data?.user || res.data || {};
 
