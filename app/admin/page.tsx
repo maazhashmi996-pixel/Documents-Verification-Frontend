@@ -156,7 +156,7 @@ export default function AdminVIPDashboard() {
         formData.append('status', action === 'verify' ? 'Verified' : 'Rejected');
 
         try {
-            await api.put(`/admin/verify-single-doc/${studentId}/${docIndex}`, formData, {
+            await api.put(`/api/admin/verify-single-doc/${studentId}/${docIndex}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
 
@@ -171,7 +171,7 @@ export default function AdminVIPDashboard() {
 
     const handleConfirmPayment = async (userId: string) => {
         try {
-            await api.put(`/admin/update-fee/${userId}`, { isPaid: true });
+            await api.put(`/api/admin/update-fee/${userId}`, { isPaid: true });
             toast.success("Transaction Verified");
             fetchAdminData();
         } catch (err) {
