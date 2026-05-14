@@ -19,21 +19,20 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
-            const res = await api.post('api/vi/auth/login', formData);
+            const res = await api.post('api/auth/login', formData);
 
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
 
             toast.success("Welcome back! Redirecting...");
 
-            // --- ROLE BASED REDIRECT LOGIC ---
             setTimeout(() => {
                 const role = res.data.user.role;
 
                 if (role === 'admin') {
                     router.push('/admin');
                 } else if (role === 'university') {
-                    router.push('/university/dashboard'); // University ka apna dashboard
+                    router.push('/university/dashboard');
                 } else if (role === 'student') {
                     router.push('/student-dashboard'); // Student ka apna dashboard
                 } else {

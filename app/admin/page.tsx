@@ -73,8 +73,8 @@ export default function AdminVIPDashboard() {
         setLoading(true);
         try {
             const [statsRes, usersRes] = await Promise.all([
-                api.get('/admin/stats'),
-                api.get(`/admin/students?search=${debouncedSearch}`)
+                api.get('/api/admin/stats'),
+                api.get(`/api/admin/students?search=${debouncedSearch}`)
             ]);
             setStats(statsRes.data);
             setUsers(usersRes.data?.users || usersRes.data || []);
@@ -92,7 +92,7 @@ export default function AdminVIPDashboard() {
     // --- Handlers ---
     const handleApproveUser = async (userId: string) => {
         try {
-            await api.put(`/admin/approve/${userId}`);
+            await api.put(`/api/admin/approve/${userId}`);
             toast.success("User Access Authorized");
             fetchAdminData();
         } catch (err) {
@@ -102,7 +102,7 @@ export default function AdminVIPDashboard() {
 
     const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
         try {
-            await api.patch(`/admin/user-status/${userId}`);
+            await api.patch(`/api/admin/user-status/${userId}`);
             toast.success(`User ${currentStatus ? 'Deactivated' : 'Activated'}`);
             setUsers(prev => prev.map(u => u._id === userId ? { ...u, isActive: !currentStatus } : u));
         } catch (err) {
@@ -113,7 +113,7 @@ export default function AdminVIPDashboard() {
     const handleDeleteUser = async (userId: string) => {
         if (!window.confirm("CRITICAL: Permanent deletion cannot be reversed. Proceed?")) return;
         try {
-            await api.delete(`/admin/delete-user/${userId}`);
+            await api.delete(`/api/admin/delete-user/${userId}`);
             toast.success("Identity Purged Successfully");
             setUsers(prev => prev.filter(u => u._id !== userId));
         } catch (err) {
@@ -124,7 +124,7 @@ export default function AdminVIPDashboard() {
     const handleDeleteDocument = async (studentId: string, docIndex: number) => {
         if (!window.confirm("Delete this document permanently?")) return;
         try {
-            await api.delete(`/admin/delete-document/${studentId}/${docIndex}`);
+            await api.delete(`/api/admin/delete-document/${studentId}/${docIndex}`);
             toast.success("Document Removed");
             fetchAdminData();
         } catch (err: any) {
