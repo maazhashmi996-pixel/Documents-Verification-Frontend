@@ -26,14 +26,13 @@ export default function LoginPage() {
 
             toast.success("Welcome back! Redirecting...");
 
-            // --- ROLE BASED REDIRECT LOGIC ---
             setTimeout(() => {
                 const role = res.data.user.role;
 
                 if (role === 'admin') {
                     router.push('/admin');
                 } else if (role === 'university') {
-                    router.push('/university/dashboard'); // University ka apna dashboard
+                    router.push('/university/dashboard');
                 } else if (role === 'student') {
                     router.push('/student-dashboard'); // Student ka apna dashboard
                 } else {
