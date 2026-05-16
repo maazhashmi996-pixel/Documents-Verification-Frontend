@@ -62,7 +62,6 @@ export default function UniversityDashboard() {
         }
 
         setLoading(true);
-        // Clear previous state to show loading transition
         setStudent(null);
 
         try {
@@ -82,7 +81,6 @@ export default function UniversityDashboard() {
         }
     }, [searchQuery]);
 
-    // Memoized date for performance
     const verificationDate = useMemo(() => new Date().toLocaleDateString('en-GB', {
         day: '2-digit', month: 'short', year: 'numeric'
     }), []);
