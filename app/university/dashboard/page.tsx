@@ -66,7 +66,7 @@ export default function UniversityDashboard() {
         setStudent(null);
 
         try {
-            const res = await api.post(`/api/university/search-student`, { passportNumber: query });
+            const res = await api.post(`/university/search-student`, { passportNumber: query });
 
             if (res.data.success && res.data.data) {
                 setStudent(res.data.data);
