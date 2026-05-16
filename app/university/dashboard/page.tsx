@@ -62,11 +62,10 @@ export default function UniversityDashboard() {
         }
 
         setLoading(true);
-        // Clear previous state to show loading transition
         setStudent(null);
 
         try {
-            const res = await api.post(`/api/university/search-student`, { passportNumber: query });
+            const res = await api.post(`/university/search-student`, { passportNumber: query });
 
             if (res.data.success && res.data.data) {
                 setStudent(res.data.data);
@@ -82,7 +81,6 @@ export default function UniversityDashboard() {
         }
     }, [searchQuery]);
 
-    // Memoized date for performance
     const verificationDate = useMemo(() => new Date().toLocaleDateString('en-GB', {
         day: '2-digit', month: 'short', year: 'numeric'
     }), []);
@@ -91,7 +89,6 @@ export default function UniversityDashboard() {
         <div className="flex min-h-screen bg-[#F8FAFC] selection:bg-indigo-100 font-sans antialiased text-slate-900">
             <Toaster position="top-right" reverseOrder={false} />
 
-            {/* SIDEBAR - Fixed Width for Desktop */}
             <aside className="w-72 bg-[#020617] m-5 rounded-[2.5rem] flex flex-col p-8 text-white shadow-2xl hidden lg:flex border border-white/5 shrink-0 sticky top-5 h-[calc(100vh-40px)]">
                 <div className="flex items-center gap-3 mb-12 px-2">
                     <div className="h-11 w-11 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
