@@ -7,7 +7,7 @@ import {
     CheckCircle2, Trash2, Eye, ShieldCheck,
     LogOut, Bell, CreditCard, XCircle, ExternalLink,
     FileText, Upload, CheckSquare, Phone,
-    UserX, UserCheck, LayoutDashboard, Loader2, CreditCard as PassportIcon, AlertCircle
+    UserCheck, LayoutDashboard, Loader2, CreditCard as PassportIcon, AlertCircle
 } from 'lucide-react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -213,7 +213,7 @@ export default function AdminVIPDashboard() {
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <StatCard title="Total Students" value={stats?.totalStudents} icon={<Users size={22} />} color="blue" loading={loading} />
                             <StatCard title="Universities" value={stats?.totalUniversities} icon={<School size={22} />} color="indigo" loading={loading} />
-                            <StatCard title="Total Revenue" value={`PKR ${stats?.totalRevenue?.toLocaleString()}`} icon={<Wallet size={22} />} color="emerald" loading={loading} />
+                            <StatCard title="Total Revenue" value={stats?.totalRevenue ? `PKR ${stats.totalRevenue.toLocaleString()}` : 'PKR 0'} icon={<Wallet size={22} />} color="emerald" loading={loading} />
                             <StatCard title="Pending Review" value={stats?.pendingApprovals} icon={<Clock size={22} />} color="amber" loading={loading} />
                         </div>
                         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
@@ -274,7 +274,7 @@ export default function AdminVIPDashboard() {
     );
 }
 
-// --- Sub-Components (Cleaned & Production Ready) ---
+// --- Sub-Components ---
 function TabButton({ active, icon, label, onClick }: any) {
     return (
         <button onClick={onClick} className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl font-bold text-sm transition-all ${active ? 'bg-slate-900 text-white shadow-xl translate-x-2' : 'text-slate-400 hover:bg-slate-50'}`}>
@@ -317,7 +317,7 @@ function StatCard({ title, value, icon, color, loading }: any) {
             <div className="flex justify-between items-start">
                 <div>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{title}</p>
-                    {loading ? <div className="h-8 w-24 bg-slate-50 animate-pulse rounded-lg" /> : <h2 className="text-3xl font-black text-slate-900">{value || 0}</h2>}
+                    {loading ? <div className="h-8 w-24 bg-slate-50 animate-pulse rounded-lg" /> : <h2 className="text-3xl font-black text-slate-900">{value ?? 0}</h2>}
                 </div>
                 <div className={`h-12 w-12 rounded-2xl flex items-center justify-center ${theme[color]} group-hover:scale-110 transition-transform`}>
                     {icon}
@@ -346,7 +346,7 @@ const UserTable = React.memo(({ users, onAction, onToggleStatus, onDeleteUser, o
                         <tr key={u._id} className="hover:bg-slate-50/50 transition-all">
                             <td className="px-8 py-5">
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 bg-slate-100 text-slate-900 rounded-xl flex items-center justify-center font-black text-xs">{u.name[0]}</div>
+                                    <div className="h-10 w-10 bg-slate-100 text-slate-900 rounded-xl flex items-center justify-center font-black text-xs">{u.name ? u.name[0] : 'U'}</div>
                                     <div>
                                         <p className="font-black text-slate-900 text-sm uppercase italic">{u.name}</p>
                                         <p className="text-[10px] text-indigo-600 font-bold flex items-center gap-1">
@@ -390,6 +390,7 @@ const UserTable = React.memo(({ users, onAction, onToggleStatus, onDeleteUser, o
         </div>
     );
 });
+UserTable.displayName = "UserTable";
 
 const VerificationCard = ({ student, remarks, setRemarks, attestFiles, setAttestFiles, processingId, handleDocumentAction, handleToggleStatus, handleDeleteUser, handleDeleteDocument }: any) => {
     return (
@@ -452,7 +453,7 @@ const VerificationCard = ({ student, remarks, setRemarks, attestFiles, setAttest
                                 <label className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-dashed border-indigo-200 text-indigo-600 rounded-xl text-[10px] font-black cursor-pointer hover:bg-indigo-50 transition-all">
                                     <Upload size={14} />
                                     <span className="truncate max-w-[150px]">{attestFiles[docKey] ? attestFiles[docKey].name : 'Upload Attestation'}</span>
-                                    <input type="file" className="hidden" onChange={(e) => setAttestFiles({ ...attestFiles, [docKey]: e.target.files![0] })} />
+                                    <input type="file" className="hidden" onChange={(e) => setAttestFiles({ ...attestFiles, [docKey]: e.target.files ? e.target.files[0] : null })} />
                                 </label>
                                 <div className="grid grid-cols-2 gap-3">
                                     <button disabled={processingId?.startsWith(docKey)} onClick={() => handleDocumentAction(student._id, idx, 'verify')} className="py-4 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 disabled:opacity-50 transition-all shadow-lg flex items-center justify-center gap-2">
