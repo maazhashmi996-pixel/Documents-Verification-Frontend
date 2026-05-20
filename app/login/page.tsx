@@ -34,7 +34,7 @@ export default function LoginPage() {
                 } else if (role === 'university') {
                     router.push('/university/dashboard');
                 } else if (role === 'student') {
-                    router.push('/student-dashboard'); // Student ka apna dashboard
+                    router.push('/student-dashboard');
                 } else {
                     toast.error("Unauthorized role. Please contact support.");
                 }
