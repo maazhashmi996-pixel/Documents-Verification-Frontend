@@ -68,7 +68,6 @@ export default function AdminVIPDashboard() {
     const [remarks, setRemarks] = useState<{ [key: string]: string }>({});
     const [attestFiles, setAttestFiles] = useState<{ [key: string]: File }>({});
 
-    // --- Data Fetching ---
     const fetchAdminData = useCallback(async () => {
         setLoading(true);
         try {
@@ -89,7 +88,6 @@ export default function AdminVIPDashboard() {
         fetchAdminData();
     }, [fetchAdminData]);
 
-    // --- Handlers ---
     const handleApproveUser = async (userId: string) => {
         try {
             await api.put(`/api/admin/approve/${userId}`);
