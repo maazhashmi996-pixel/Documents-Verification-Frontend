@@ -44,7 +44,6 @@ interface Stats {
     pendingApprovals: number;
 }
 
-// --- Custom Hook for Debounce ---
 function useDebounce(value: string, delay: number) {
     const [debouncedValue, setDebouncedValue] = useState(value);
     useEffect(() => {
@@ -272,7 +271,6 @@ export default function AdminVIPDashboard() {
     );
 }
 
-// --- Sub-Components ---
 function TabButton({ active, icon, label, onClick }: any) {
     return (
         <button onClick={onClick} className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl font-bold text-sm transition-all ${active ? 'bg-slate-900 text-white shadow-xl translate-x-2' : 'text-slate-400 hover:bg-slate-50'}`}>
