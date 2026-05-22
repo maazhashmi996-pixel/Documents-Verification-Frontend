@@ -282,7 +282,6 @@ export default function StudentDashboard() {
     );
 }
 
-// --- Sub-Components for Clean Code ---
 
 function StatusBadge({ status }: { status: Document['status'] }) {
     const config = {
