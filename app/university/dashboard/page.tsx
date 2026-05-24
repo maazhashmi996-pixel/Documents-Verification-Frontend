@@ -46,14 +46,12 @@ export default function UniversityDashboard() {
     const [student, setStudent] = useState<StudentData | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // Optimized Session Management
     const handleLogout = useCallback(() => {
         localStorage.clear();
         toast.success("Security Session Ended");
         setTimeout(() => router.replace('/login'), 500);
     }, [router]);
 
-    // Enhanced Search Logic
     const handlePassportSearch = useCallback(async () => {
         const query = searchQuery.trim().toUpperCase();
         if (!query) {
