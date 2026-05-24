@@ -189,7 +189,7 @@ export default function AdminVIPDashboard() {
                     <div className="h-10 w-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg">
                         <ShieldCheck className="text-white" size={20} />
                     </div>
-                    <span className="font-black text-xl tracking-tighter italic text-slate-900">QUAL CHECK</span>
+                    <span className="font-black text-xl tracking-tighter italic text-slate-900">Verification</span>
                 </div>
                 <nav className="flex-1 px-6 space-y-2">
                     <TabButton active={activeTab === 'Overview'} icon={<LayoutDashboard size={18} />} label="Overview" onClick={() => setActiveTab('Overview')} />

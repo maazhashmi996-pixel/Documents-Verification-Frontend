@@ -58,7 +58,7 @@ export default function LoginPage() {
                         <LogIn className="text-indigo-600 h-10 w-10" />
                     </div>
                     <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Welcome Back</h2>
-                    <p className="text-slate-500 font-medium tracking-wide">Enter your details to access Qual Check</p>
+                    <p className="text-slate-500 font-medium tracking-wide">Enter your details to access Verification Documents</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">

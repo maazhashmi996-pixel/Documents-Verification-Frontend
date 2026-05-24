@@ -93,7 +93,7 @@ export default function UniversityDashboard() {
                         <ShieldCheck size={24} />
                     </div>
                     <div>
-                        <h2 className="text-xl font-black tracking-tighter italic leading-tight">QUAL_CHECK</h2>
+                        <h2 className="text-xl font-black tracking-tighter italic leading-tight">Verification_CHECK</h2>
                         <span className="text-[8px] text-indigo-400 font-bold uppercase tracking-[0.2em]">Authority Node</span>
                     </div>
                 </div>
