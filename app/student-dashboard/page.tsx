@@ -148,7 +148,6 @@ export default function StudentDashboard() {
                     </div>
                 </header>
 
-                {/* --- Quick Stats --- */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <StatCard
                         title="File Status"
@@ -176,7 +175,6 @@ export default function StudentDashboard() {
                     />
                 </section>
 
-                {/* --- Main Content Table --- */}
                 <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden transition-all hover:shadow-md">
                     {/* Table Toolbar */}
                     <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
