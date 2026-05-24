@@ -129,7 +129,6 @@ export default function UniversityDashboard() {
                     </div>
                 </header>
 
-                {/* SEARCH INTERFACE */}
                 <div className="max-w-4xl mb-12">
                     <div className="bg-white p-2 rounded-[2rem] shadow-2xl shadow-slate-200/60 border border-slate-100 flex items-center gap-2 group transition-all focus-within:ring-4 focus-within:ring-indigo-500/5">
                         <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-focus-within:text-indigo-500 transition-colors">
@@ -153,7 +152,6 @@ export default function UniversityDashboard() {
                     </div>
                 </div>
 
-                {/* RESULTS AREA */}
                 {student ? (
                     <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-8">
 
