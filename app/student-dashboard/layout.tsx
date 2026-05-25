@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     };
 
     const handlePaymentComplete = () => {
-        setActiveTab('Overview'); // Redirect to overview after successful payment
+        setActiveTab('Overview');
     };
 
     return (
