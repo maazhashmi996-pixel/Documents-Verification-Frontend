@@ -15,7 +15,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         router.push('/login');
     };
 
-    // Callback function to handle what happens after payment submission
     const handlePaymentComplete = () => {
         setActiveTab('Overview'); // Redirect to overview after successful payment
     };
