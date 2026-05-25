@@ -21,7 +21,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     return (
         <div className="min-h-screen bg-slate-50 flex">
-            {/* Sidebar - Fixed for desktop */}
             <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col fixed h-full z-20">
                 <div className="p-8">
                     <h1 className="text-2xl font-black text-slate-900 italic tracking-tighter">Qual Check</h1>
