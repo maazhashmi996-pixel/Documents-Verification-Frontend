@@ -82,7 +82,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </header>
 
                 <div className="p-8">
-                    {/* 1. Overview Tab (Children from page.tsx) */}
                     {activeTab === 'Overview' && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             {children}
