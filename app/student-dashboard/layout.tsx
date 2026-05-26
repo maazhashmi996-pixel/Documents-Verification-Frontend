@@ -82,7 +82,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </header>
 
                 <div className="p-8">
-                    {/* 1. Overview Tab (Children from page.tsx) */}
                     {activeTab === 'Overview' && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             {children}
@@ -96,7 +95,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
                     )}
 
-                    {/* 3. Placeholder for other tabs */}
                     {activeTab !== 'Overview' && activeTab !== 'Payments' && (
                         <div className="flex flex-col items-center justify-center h-[60vh] text-slate-400">
                             <div className="p-6 bg-white rounded-full shadow-inner mb-4 animate-pulse">
