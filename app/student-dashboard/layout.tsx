@@ -88,7 +88,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
                     )}
 
-                    {/* 2. Payments Tab (Corrected Red Line by passing onComplete) */}
                     {activeTab === 'Payments' && (
                         <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                             <PaymentStep onComplete={handlePaymentComplete} />
