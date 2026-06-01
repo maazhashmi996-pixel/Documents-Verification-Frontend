@@ -110,7 +110,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     );
 }
 
-// Optimized Sidebar NavItem Component
 function NavItem({ icon, label, active = false, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) {
     return (
         <button
