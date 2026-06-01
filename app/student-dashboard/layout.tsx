@@ -65,7 +65,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </aside>
 
             <main className="flex-1 flex flex-col ml-64">
-                {/* Top Navbar */}
                 <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 sticky top-0 z-10 backdrop-blur-md bg-white/80">
                     <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
                         Student Portal / {activeTab}
