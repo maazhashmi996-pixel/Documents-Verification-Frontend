@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const api = axios.create({
     // Agar .env mein URL hai to wo use karega, warna fallback localhost par
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
+    baseURL: (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api').replace(/\/api\/?$/i, ''),
     headers: {
         'Content-Type': 'application/json',
     },
