@@ -178,7 +178,7 @@ export default function AdminVIPDashboard() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        router.push('/login');
+        router.push('/');
     };
 
     return (
@@ -211,7 +211,7 @@ export default function AdminVIPDashboard() {
                             <StatCard title="Total Students" value={stats?.totalStudents} icon={<Users size={22} />} color="blue" loading={loading} />
                             <StatCard title="Universities" value={stats?.totalUniversities} icon={<School size={22} />} color="indigo" loading={loading} />
                             <StatCard title="Total Revenue" value={stats?.totalRevenue ? `PKR ${stats.totalRevenue.toLocaleString()}` : 'PKR 0'} icon={<Wallet size={22} />} color="emerald" loading={loading} />
-                            <StatCard title="Pending Review" value={stats?.pendingApprovals} icon={<Clock size={22} />} color="amber" loading={loading} />
+                            <StatCard title="Universities Pending" value={stats?.pendingApprovals} icon={<Clock size={22} />} color="amber" loading={loading} />
                         </div>
                         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
                             <div className="p-8 border-b border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -280,6 +280,10 @@ function TabButton({ active, icon, label, onClick }: any) {
 }
 
 function Header({ activeTab }: { activeTab: string }) {
+    const [adminName, setAdminName] = useState('Administrator');
+    useEffect(() => {
+        try { const u = JSON.parse(localStorage.getItem('user') || '{}'); if (u.name) setAdminName(u.name); } catch { /* keep default */ }
+    }, []);
     return (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
             <div>
@@ -287,9 +291,9 @@ function Header({ activeTab }: { activeTab: string }) {
                 <p className="text-slate-400 font-bold text-[10px] tracking-[0.4em] uppercase mt-1">Global Verification Network</p>
             </div>
             <div className="flex items-center gap-4 bg-white p-2 pr-6 rounded-2xl border border-slate-100 shadow-sm">
-                <div className="h-12 w-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black">M</div>
+                <div className="h-12 w-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black">{adminName.charAt(0).toUpperCase()}</div>
                 <div className="text-left">
-                    <p className="text-sm font-black text-slate-900">Maaz Hashmi</p>
+                    <p className="text-sm font-black text-slate-900">{adminName}</p>
                     <p className="text-[10px] text-indigo-600 font-black uppercase">Root Administrator</p>
                 </div>
                 <div className="h-10 w-10 bg-slate-50 rounded-xl flex items-center justify-center ml-4 border border-slate-100 relative">
@@ -357,7 +361,11 @@ const UserTable = React.memo(({ users, onAction, onToggleStatus, onDeleteUser, o
                                 </p>
                             </td>
                             <td className="px-8 py-5">
-                                {u.isApproved ? (
+                                {u.role === 'student' ? (
+                                    <span className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-black uppercase">
+                                        <UserCheck size={14} /> Email verified
+                                    </span>
+                                ) : u.isApproved ? (
                                     <span className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-black uppercase">
                                         <UserCheck size={14} /> Approved
                                     </span>

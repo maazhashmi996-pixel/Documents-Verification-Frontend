@@ -1,321 +1,254 @@
 "use client";
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
-    CheckCircle, Clock, AlertCircle, FileUp, MoreVertical,
-    LogOut, Loader2, FileText, ShieldCheck, Zap,
-    BookmarkCheck, ExternalLink, Search, Filter
+    FileUp, LogOut, Loader2, FileText, Search, Share2, Trash2, ExternalLink,
+    BadgeCheck, Clock, XCircle, Files, RefreshCw,
 } from 'lucide-react';
-import UploadModal from '@/Components/UploadModal';
-import api from '@/lib/api';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
+import { ROLES } from '@/lib/roles';
+import Seal from '@/Components/Seal';
+import UploadModal from '@/Components/UploadModal';
+import ShareModal from '@/Components/ShareModal';
 
-// --- Types ---
-interface Document {
+type Status = 'Pending' | 'Verified' | 'Rejected';
+interface Doc {
     _id: string;
     title: string;
     institute: string;
-    status: 'Pending' | 'Verified' | 'Rejected';
+    status: Status;
     remarks?: string;
+    fileUrl?: string;
     verifySlip?: string;
     createdAt: string;
 }
 
-interface UserData {
-    isPaid: boolean;
-    isApproved: boolean;
-    name: string;
-    email?: string;
-}
+const role = ROLES.student;
+const FILTERS: ('All' | Status)[] = ['All', 'Pending', 'Verified', 'Rejected'];
+const BADGE: Record<Status, { cls: string; Icon: typeof Clock }> = {
+    Verified: { cls: 'bg-[#e6f3ef] text-[#17554a]', Icon: BadgeCheck },
+    Pending: { cls: 'bg-[#fbf3df] text-[#8a6212]', Icon: Clock },
+    Rejected: { cls: 'bg-[#fdecef] text-[#b4233c]', Icon: XCircle },
+};
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
 export default function StudentDashboard() {
     const router = useRouter();
+    const [docs, setDocs] = useState<Doc[]>([]);
+    const [name, setName] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [uploadOpen, setUploadOpen] = useState(false);
+    const [shareDoc, setShareDoc] = useState<Doc | null>(null);
+    const [deleteDoc, setDeleteDoc] = useState<Doc | null>(null);
+    const [deleting, setDeleting] = useState(false);
+    const [query, setQuery] = useState('');
+    const [filter, setFilter] = useState<'All' | Status>('All');
 
-    // --- State Management ---
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isSyncing, setIsSyncing] = useState(false);
-    const [documents, setDocuments] = useState<Document[]>([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [userData, setUserData] = useState<UserData>({
-        isPaid: true,
-        isApproved: false,
-        name: "Student",
-    });
-
-    // --- Data Fetching ---
-    const fetchDashboardData = useCallback(async () => {
-        setIsSyncing(true);
+    const load = useCallback(async () => {
+        setLoading(true);
         try {
             const res = await api.get('/api/student/dashboard');
-            const fetchedDocs = res.data?.documents || [];
-            const user = res.data?.user || res.data || {};
-
-            setUserData({
-                isPaid: true, // Business Logic Bypass
-                isApproved: user.isApproved || false,
-                name: user.name || "Maaz",
-            });
-
-            setDocuments(fetchedDocs);
+            setDocs(res.data?.documents || []);
+            setName(res.data?.name || '');
         } catch (err: any) {
-            console.error("Dashboard Fetch Error:", err);
-            const message = err.response?.data?.message || "Failed to sync dashboard stats";
-            toast.error(message);
-            if (err.response?.status === 401) router.push('/login');
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                router.replace('/login/student');
+                return;
+            }
+            toast.error(err.response?.data?.msg || 'Could not load your documents.');
         } finally {
-            setIsSyncing(false);
+            setLoading(false);
         }
     }, [router]);
 
-    useEffect(() => {
-        fetchDashboardData();
-    }, [fetchDashboardData]);
+    useEffect(() => { load(); }, [load]);
 
-    // --- Memoized Calculations ---
-    const stats = useMemo(() => ({
-        total: documents.length,
-        pending: documents.filter(d => d.status === 'Pending').length,
-        verified: documents.filter(d => d.status === 'Verified').length,
-    }), [documents]);
+    const counts = useMemo(() => ({
+        All: docs.length,
+        Pending: docs.filter((d) => d.status === 'Pending').length,
+        Verified: docs.filter((d) => d.status === 'Verified').length,
+        Rejected: docs.filter((d) => d.status === 'Rejected').length,
+    }), [docs]);
 
-    const filteredDocs = useMemo(() => {
-        return documents.filter(doc =>
-            doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            doc.institute.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }, [documents, searchQuery]);
+    const shown = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        return docs
+            .filter((d) => filter === 'All' || d.status === filter)
+            .filter((d) => !q || d.title.toLowerCase().includes(q) || d.institute.toLowerCase().includes(q))
+            .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+    }, [docs, query, filter]);
 
-    const handleLogout = () => {
+    const logout = () => {
         localStorage.removeItem('token');
-        toast.success("Security session ended");
-        router.push('/login');
+        localStorage.removeItem('user');
+        router.push('/');
     };
 
+    const confirmDelete = async () => {
+        if (!deleteDoc) return;
+        setDeleting(true);
+        try {
+            await api.delete(`/api/student/document/${deleteDoc._id}`);
+            toast.success('Document removed.');
+            setDocs((d) => d.filter((x) => x._id !== deleteDoc._id));
+            setDeleteDoc(null);
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not delete the document.');
+        } finally {
+            setDeleting(false);
+        }
+    };
+
+    const vars = { '--accent': role.accent, '--accent-deep': role.accentDeep, '--accent-soft': role.soft } as React.CSSProperties;
+    const firstName = name.split(' ')[0];
+
     return (
-        <div className="min-h-screen bg-[#fafbfc] p-4 md:p-8 lg:p-12">
-            <Toaster position="top-right" />
+        <div style={vars} className="min-h-screen">
+            <Toaster position="top-center" />
+            <UploadModal isOpen={uploadOpen} onClose={() => setUploadOpen(false)} refreshData={load} />
+            <ShareModal doc={shareDoc} onClose={() => setShareDoc(null)} />
 
-            <UploadModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                userStatus={{
-                    isPaid: true,
-                    isApproved: userData.isApproved,
-                    paymentStatus: "Approved"
-                }}
-                refreshData={fetchDashboardData}
-            />
-
-            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-5 duration-1000">
-
-                {/* --- Top Navigation / Header --- */}
-                <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="flex items-center gap-5">
-                        <div className="relative">
-                            <div className="h-16 w-16 rounded-2xl bg-slate-900 flex items-center justify-center shadow-2xl shadow-indigo-200 ring-4 ring-white">
-                                <span className="text-white text-2xl font-bold">{userData.name.charAt(0)}</span>
-                            </div>
-                            <div className="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-500 border-4 border-white rounded-full" />
+            {deleteDoc && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-ink/40 backdrop-blur-sm" onClick={() => !deleting && setDeleteDoc(null)}>
+                    <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm bg-white rounded-3xl p-7 shadow-2xl">
+                        <h2 className="font-display text-xl text-ink">Remove this document?</h2>
+                        <p className="text-sm text-ink-soft mt-2 leading-relaxed"><span className="font-semibold text-ink">{deleteDoc.title}</span> and its public link will be deleted. This cannot be undone.</p>
+                        <div className="mt-6 flex gap-3">
+                            <button onClick={() => setDeleteDoc(null)} disabled={deleting} className="flex-1 h-11 rounded-xl border border-line font-semibold text-ink hover:bg-pearl">Keep it</button>
+                            <button onClick={confirmDelete} disabled={deleting} className="flex-1 h-11 rounded-xl font-semibold text-white bg-rose-700 hover:brightness-110 inline-flex items-center justify-center">
+                                {deleting ? <Loader2 size={18} className="animate-spin" /> : 'Delete'}
+                            </button>
                         </div>
-                        <div>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                                Hi, {userData.name}!
-                            </h2>
-                            <p className="text-slate-500 font-medium flex items-center gap-2 text-sm mt-1">
-                                <ShieldCheck size={16} className="text-indigo-500" />
-                                Student ID: {userData.isApproved ? 'Verified Account' : 'Verification in Progress'}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={handleLogout}
-                            className="p-3.5 rounded-2xl border border-slate-200 bg-white text-slate-600 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95"
-                            title="Sign Out"
-                        >
-                            <LogOut size={20} />
-                        </button>
-
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="flex-1 md:flex-none bg-slate-900 hover:bg-indigo-600 text-white px-8 py-3.5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-indigo-100 active:scale-95"
-                        >
-                            <FileUp size={20} />
-                            <span>Upload Document</span>
-                        </button>
-                    </div>
-                </header>
-
-                <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <StatCard
-                        title="File Status"
-                        value={stats.pending > 0 ? "In Review" : "All Clear"}
-                        icon={<Clock size={24} className="text-amber-500" />}
-                        bgColor="bg-amber-50"
-                        desc={`${stats.pending} pending verification`}
-                        accentColor="bg-amber-500"
-                    />
-                    <StatCard
-                        title="Repository"
-                        value={stats.total.toString().padStart(2, '0')}
-                        icon={<CheckCircle size={24} className="text-indigo-500" />}
-                        bgColor="bg-indigo-50"
-                        desc={`${stats.verified} documents verified`}
-                        accentColor="bg-indigo-500"
-                    />
-                    <StatCard
-                        title="System Access"
-                        value="Premium"
-                        icon={<BookmarkCheck size={24} className="text-emerald-500" />}
-                        bgColor="bg-emerald-50"
-                        desc="Cloud sync active"
-                        accentColor="bg-emerald-500"
-                    />
-                </section>
-
-                <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden transition-all hover:shadow-md">
-                    {/* Table Toolbar */}
-                    <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div className="flex items-center gap-3">
-                            <div className="h-8 w-1 bg-indigo-600 rounded-full" />
-                            <h3 className="font-bold text-slate-900 text-xl">Submission History</h3>
-                        </div>
-
-                        <div className="relative w-full md:w-72">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                            <input
-                                type="text"
-                                placeholder="Search documents..."
-                                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Desktop Table */}
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse min-w-[800px]">
-                            <thead>
-                                <tr className="bg-slate-50/50 text-slate-400 text-[11px] uppercase tracking-[0.1em] font-black">
-                                    <th className="px-8 py-5">Document & Source</th>
-                                    <th className="px-8 py-5">Current Status</th>
-                                    <th className="px-8 py-5">Official Remarks</th>
-                                    <th className="px-8 py-5">Verification</th>
-                                    <th className="px-8 py-5 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-50">
-                                {filteredDocs.length > 0 ? filteredDocs.map((doc) => (
-                                    <tr key={doc._id} className="hover:bg-slate-50/80 transition-colors group">
-                                        <td className="px-8 py-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="h-11 w-11 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:text-indigo-600 transition-all border border-transparent group-hover:border-slate-200 shadow-sm">
-                                                    <FileText size={22} />
-                                                </div>
-                                                <div className="flex flex-col">
-                                                    <span className="text-slate-900 font-bold leading-tight">{doc.title}</span>
-                                                    <span className="text-xs text-slate-400 mt-0.5">{doc.institute}</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <StatusBadge status={doc.status} />
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <p className="text-sm text-slate-500 italic max-w-[200px] truncate">
-                                                {doc.remarks || "Processing update..."}
-                                            </p>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            {doc.verifySlip ? (
-                                                <a
-                                                    href={doc.verifySlip}
-                                                    target="_blank"
-                                                    className="inline-flex items-center gap-2 text-indigo-600 font-bold text-xs hover:underline decoration-2 underline-offset-4"
-                                                >
-                                                    <ExternalLink size={14} />
-                                                    Download Slip
-                                                </a>
-                                            ) : (
-                                                <span className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">Not Issued</span>
-                                            )}
-                                        </td>
-                                        <td className="px-8 py-6 text-right">
-                                            <button className="p-2 hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 rounded-lg text-slate-400 hover:text-indigo-600 transition-all">
-                                                <MoreVertical size={18} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan={5} className="py-32 text-center">
-                                            <div className="flex flex-col items-center gap-4 animate-in zoom-in-95 duration-500">
-                                                <div className="h-20 w-20 rounded-full bg-slate-50 flex items-center justify-center border border-dashed border-slate-200">
-                                                    <AlertCircle size={32} className="text-slate-200" />
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <h4 className="font-bold text-slate-900">No records found</h4>
-                                                    <p className="text-slate-400 text-sm">Try adjusting your search or upload a new file.</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-between items-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                            Secure Cloud Database • Last Sync: {new Date().toLocaleTimeString()}
-                        </p>
-                        {isSyncing && <Loader2 size={14} className="animate-spin text-indigo-500" />}
                     </div>
                 </div>
-            </div>
+            )}
+
+            {/* Top bar */}
+            <header className="bg-white border-b border-line">
+                <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Seal size={30} color="#b8924a" />
+                        <span className="font-display text-lg font-semibold text-ink">Qual Check</span>
+                    </div>
+                    <button onClick={logout} className="inline-flex items-center gap-2 h-10 px-4 rounded-xl border border-line text-sm font-semibold text-ink-soft hover:text-rose-700 hover:border-rose-200 transition">
+                        <LogOut size={16} /> Sign out
+                    </button>
+                </div>
+            </header>
+
+            <main className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+                    <div>
+                        <h1 className="font-display text-3xl sm:text-4xl text-ink">{firstName ? `Welcome back, ${firstName}` : 'Your documents'}</h1>
+                        <p className="text-ink-soft mt-2">Upload a document, follow its review and share a verified link.</p>
+                    </div>
+                    <button onClick={() => setUploadOpen(true)} className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl font-semibold text-white bg-[var(--accent)] hover:brightness-110 active:scale-[0.99] transition">
+                        <FileUp size={18} /> Upload document
+                    </button>
+                </div>
+
+                <section className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Stat label="All documents" value={counts.All} Icon={Files} tone="text-[var(--accent-deep)] bg-[var(--accent-soft)]" />
+                    <Stat label="Awaiting review" value={counts.Pending} Icon={Clock} tone="text-[#8a6212] bg-[#fbf3df]" />
+                    <Stat label="Verified" value={counts.Verified} Icon={BadgeCheck} tone="text-[#17554a] bg-[#e6f3ef]" />
+                    <Stat label="Rejected" value={counts.Rejected} Icon={XCircle} tone="text-[#b4233c] bg-[#fdecef]" />
+                </section>
+
+                <section className="mt-8 bg-white border border-line rounded-3xl overflow-hidden shadow-[0_24px_60px_-40px_rgba(15,27,51,0.35)]">
+                    <div className="p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center gap-4 border-b border-line">
+                        <div className="flex flex-wrap gap-2 lg:flex-1">
+                            {FILTERS.map((f) => (
+                                <button
+                                    key={f}
+                                    onClick={() => setFilter(f)}
+                                    className={`h-9 px-4 rounded-full text-sm font-semibold transition ${filter === f ? 'bg-ink text-white' : 'bg-pearl text-ink-soft hover:text-ink'}`}
+                                >
+                                    {f} <span className="opacity-60 ml-1">{counts[f]}</span>
+                                </button>
+                            ))}
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="relative flex-1 lg:w-72">
+                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-soft/60" />
+                                <input
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Search title or institute"
+                                    aria-label="Search documents"
+                                    className="w-full h-10 pl-10 pr-3 bg-white border border-line rounded-xl text-sm text-ink outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]"
+                                />
+                            </div>
+                            <button onClick={load} aria-label="Refresh" className="h-10 w-10 inline-flex items-center justify-center rounded-xl border border-line text-ink-soft hover:text-ink">
+                                <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {loading && docs.length === 0 ? (
+                        <div className="py-24 flex justify-center"><Loader2 className="animate-spin text-ink-soft" /></div>
+                    ) : shown.length === 0 ? (
+                        <div className="py-20 px-6 text-center">
+                            <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pearl text-ink-soft"><FileText size={26} /></span>
+                            <h3 className="font-display text-xl text-ink mt-5">{docs.length === 0 ? 'No documents yet' : 'Nothing matches'}</h3>
+                            <p className="text-ink-soft mt-1">{docs.length === 0 ? 'Upload your first document to start the verification.' : 'Try another filter or search word.'}</p>
+                        </div>
+                    ) : (
+                        <ul className="divide-y divide-line">
+                            {shown.map((doc) => {
+                                const b = BADGE[doc.status];
+                                return (
+                                    <li key={doc._id} className="p-5 sm:p-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                                        <div className="flex items-start gap-4 md:flex-1 min-w-0">
+                                            <span className="h-11 w-11 shrink-0 rounded-xl bg-[var(--accent-soft)] text-[var(--accent-deep)] inline-flex items-center justify-center"><FileText size={20} /></span>
+                                            <div className="min-w-0">
+                                                <p className="font-semibold text-ink truncate">{doc.title}</p>
+                                                <p className="text-sm text-ink-soft truncate">{doc.institute} · uploaded {fmt(doc.createdAt)}</p>
+                                                {doc.remarks && doc.status !== 'Pending' && <p className="text-sm text-ink-soft mt-1.5 italic">&ldquo;{doc.remarks}&rdquo;</p>}
+                                            </div>
+                                        </div>
+
+                                        <span className={`self-start md:self-auto inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-sm font-semibold ${b.cls}`}>
+                                            <b.Icon size={15} /> {doc.status}
+                                        </span>
+
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <button onClick={() => setShareDoc(doc)} className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-[var(--accent-deep)] bg-[var(--accent-soft)] hover:brightness-95">
+                                                <Share2 size={15} /> Share
+                                            </button>
+                                            {doc.fileUrl && (
+                                                <a href={doc.fileUrl} target="_blank" rel="noreferrer" className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-ink-soft border border-line hover:text-ink">
+                                                    <ExternalLink size={15} /> Original
+                                                </a>
+                                            )}
+                                            {doc.verifySlip && (
+                                                <a href={doc.verifySlip} target="_blank" rel="noreferrer" className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-[#17554a] border border-[#cfe6df] hover:bg-[#e6f3ef]">
+                                                    <BadgeCheck size={15} /> Slip
+                                                </a>
+                                            )}
+                                            <button onClick={() => setDeleteDoc(doc)} aria-label={`Delete ${doc.title}`} className="h-9 w-9 inline-flex items-center justify-center rounded-xl text-ink-soft hover:text-rose-700 hover:bg-rose-50">
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                </section>
+            </main>
         </div>
     );
 }
 
-
-function StatusBadge({ status }: { status: Document['status'] }) {
-    const config = {
-        Verified: "bg-emerald-50 text-emerald-700 border-emerald-100",
-        Rejected: "bg-rose-50 text-rose-700 border-rose-100",
-        Pending: "bg-amber-50 text-amber-700 border-amber-100"
-    };
-
+function Stat({ label, value, Icon, tone }: { label: string; value: number; Icon: typeof Clock; tone: string }) {
     return (
-        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${config[status]}`}>
-            <span className={`h-1.5 w-1.5 rounded-full currentColor mb-[1px] ${status === 'Verified' ? 'bg-emerald-500' : status === 'Rejected' ? 'bg-rose-500' : 'bg-amber-500'}`} />
-            {status}
-        </span>
-    );
-}
-
-function StatCard({ title, value, icon, bgColor, desc, accentColor }: any) {
-    return (
-        <div className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group relative overflow-hidden">
-            <div className={`absolute top-0 right-0 h-32 w-32 -mr-16 -mt-16 rounded-full ${accentColor} opacity-[0.03] group-hover:scale-110 transition-transform`} />
-
-            <div className="flex justify-between items-start mb-8">
-                <div className={`${bgColor} h-14 w-14 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500`}>
-                    {icon}
-                </div>
-                <div className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">System Protected</div>
-            </div>
-
-            <div className="space-y-1">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{title}</p>
-                <h4 className="text-4xl font-black text-slate-900 tracking-tighter">{value}</h4>
-                <div className="flex items-center gap-2 pt-3">
-                    <Zap size={12} className={`${accentColor.replace('bg-', 'text-')} fill-current`} />
-                    <p className="text-xs text-slate-500 font-medium">{desc}</p>
-                </div>
-            </div>
+        <div className="bg-white border border-line rounded-2xl p-5">
+            <span className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${tone}`}><Icon size={20} /></span>
+            <p className="font-display text-3xl text-ink mt-4">{value}</p>
+            <p className="text-sm text-ink-soft mt-0.5">{label}</p>
         </div>
     );
 }

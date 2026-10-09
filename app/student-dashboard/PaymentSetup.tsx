@@ -19,7 +19,7 @@ export default function PaymentStep({ onComplete }: { onComplete: () => void }) 
         formData.append('transactionId', tid);
 
         try {
-            await api.post('/student/submit-payment', formData);
+            await api.post('/api/student/submit-payment', formData);
             toast.success("Payment proof submitted successfully!");
             onComplete();
         } catch (err: any) {
