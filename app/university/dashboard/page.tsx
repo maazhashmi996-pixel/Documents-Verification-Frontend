@@ -49,7 +49,7 @@ export default function UniversityDashboard() {
     const handleLogout = useCallback(() => {
         localStorage.clear();
         toast.success("Security Session Ended");
-        setTimeout(() => router.replace('/login'), 500);
+        setTimeout(() => router.replace('/'), 500);
     }, [router]);
 
     const handlePassportSearch = useCallback(async () => {
