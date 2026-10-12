@@ -13,8 +13,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Qual Check | Document Verification",
-  description: "Student, university and admin portal for verified academic documents.",
+  title: "Verification Check | Document Verification",
+  description: "Verification Check student, university and administrator portal for academic document verification.",
 };
 
 export default function RootLayout({

@@ -42,7 +42,7 @@ export const ROLES: Record<RoleKey, RoleConfig> = {
         key: 'admin',
         title: 'Admin',
         blurb: 'Review documents, manage users and approve university accounts.',
-        signupNote: 'Only one admin account can exist. We will email you a 6-digit code.',
+        signupNote: 'Administrator accounts are provisioned through a controlled server setup process.',
         accent: '#b8924a',
         solid: '#8f6d2e',
         article: 'an',
