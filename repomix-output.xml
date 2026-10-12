@@ -1,0 +1,2773 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+app/
+  admin/
+    page.tsx
+  forgot-password/
+    [role]/
+      page.tsx
+  login/
+    [role]/
+      page.tsx
+    page.tsx
+  signup/
+    [role]/
+      page.tsx
+    page.tsx
+  student-dashboard/
+    layout.tsx
+    page.tsx
+    PaymentSetup.tsx
+  university/
+    dashboard/
+      page.tsx
+  verify/
+    [code]/
+      page.tsx
+  favicon.ico
+  globals.css
+  layout.tsx
+  page.tsx
+Components/
+  AuthField.tsx
+  AuthLayout.tsx
+  OtpInput.tsx
+  Seal.tsx
+  ShareModal.tsx
+  UploadModal.tsx
+  VerifyLookup.tsx
+lib/
+  api.ts
+  roles.ts
+public/
+  file.svg
+  globe.svg
+  next.svg
+  vercel.svg
+  window.svg
+.gitignore
+AGENTS.md
+CLAUDE.md
+eslint.config.mjs
+next.config.ts
+package.json
+postcss.config.mjs
+README.md
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="AGENTS.md">
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
+</file>
+
+<file path="CLAUDE.md">
+@AGENTS.md
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="app/forgot-password/[role]/page.tsx">
+"use client";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { toast, Toaster } from 'react-hot-toast';
+import { Mail, Lock, ArrowRight, Loader2, MailCheck } from 'lucide-react';
+import api from '@/lib/api';
+import { ROLES, isRole } from '@/lib/roles';
+import AuthLayout from '@/Components/AuthLayout';
+import AuthField from '@/Components/AuthField';
+import OtpInput from '@/Components/OtpInput';
+
+export default function ForgotPasswordPage() {
+    const params = useParams<{ role: string }>();
+    const router = useRouter();
+    const valid = isRole(params.role);
+
+    const [step, setStep] = useState<'email' | 'reset'>('email');
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [code, setCode] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+    const [cooldown, setCooldown] = useState(0);
+
+    useEffect(() => {
+        if (!valid) router.replace('/');
+    }, [valid, router]);
+
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+        return () => clearTimeout(t);
+    }, [cooldown]);
+
+    if (!isRole(params.role)) return null;
+    const role = ROLES[params.role];
+    const btn = 'w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white transition hover:brightness-110 disabled:opacity-70 disabled:cursor-not-allowed';
+
+    const requestCode = async (e?: React.FormEvent) => {
+        e?.preventDefault();
+        setLoading(true);
+        try {
+            const res = await api.post('/api/auth/forgot-password', { email, role: role.key });
+            toast.success(res.data.msg);
+            setCooldown(res.data.resendAfterSeconds || 60);
+            setCode('');
+            setStep('reset');
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const resetPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (code.length < 6) return toast.error('Enter all 6 digits.');
+        if (password.length < 6) return toast.error('Password must be at least 6 characters.');
+        if (password !== confirm) return toast.error('The two passwords do not match.');
+        setLoading(true);
+        try {
+            const res = await api.post('/api/auth/reset-password', { email, role: role.key, otp: code, newPassword: password });
+            toast.success(res.data.msg);
+            setTimeout(() => router.push(`/login/${role.key}`), 1600);
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not reset the password.');
+            if (err.response?.data?.expired) setStep('email');
+            else setCode('');
+            setLoading(false);
+        }
+    };
+
+    return (
+        <AuthLayout role={role} heading={step === 'email' ? 'Reset your password' : 'Choose a new password'}>
+            <Toaster position="top-center" />
+
+            {step === 'email' ? (
+                <form onSubmit={requestCode} className="space-y-5">
+                    <p className="text-sm text-ink-soft leading-relaxed">
+                        Enter the email of your {role.title.toLowerCase()} account and we will send you a 6-digit code.
+                    </p>
+                    <AuthField label="Email address" icon={<Mail size={18} />} type="email" value={email} onChange={setEmail} placeholder="name@example.com" autoComplete="email" />
+                    <button type="submit" disabled={loading} className={btn} style={{ background: role.solid }}>
+                        {loading ? <Loader2 size={18} className="animate-spin" /> : <>Send code <ArrowRight size={18} /></>}
+                    </button>
+                </form>
+            ) : (
+                <form onSubmit={resetPassword} className="space-y-5">
+                    <div className="flex items-start gap-3 rounded-2xl p-4" style={{ background: role.soft }}>
+                        <MailCheck size={20} className="mt-0.5 shrink-0" style={{ color: role.accentDeep }} />
+                        <p className="text-sm text-ink leading-relaxed">
+                            If an account exists for <span className="font-semibold break-all">{email}</span>, a code is on its way. It is valid for 10 minutes.
+                        </p>
+                    </div>
+
+                    <OtpInput value={code} onChange={setCode} />
+
+                    <AuthField label="New password" icon={<Lock size={18} />} type="password" value={password} onChange={setPassword} placeholder="At least 6 characters" autoComplete="new-password" />
+                    <AuthField label="Confirm new password" icon={<Lock size={18} />} type="password" value={confirm} onChange={setConfirm} placeholder="Repeat the password" autoComplete="new-password" />
+
+                    <button type="submit" disabled={loading || code.length < 6} className={btn} style={{ background: role.solid }}>
+                        {loading ? <Loader2 size={18} className="animate-spin" /> : <>Update password <ArrowRight size={18} /></>}
+                    </button>
+
+                    <div className="flex items-center justify-between text-sm">
+                        <button type="button" onClick={() => setStep('email')} className="font-semibold text-ink-soft hover:text-ink">Change email</button>
+                        <button
+                            type="button"
+                            onClick={() => requestCode()}
+                            disabled={cooldown > 0 || loading}
+                            className="font-semibold disabled:text-ink-soft/60 disabled:cursor-not-allowed"
+                            style={cooldown > 0 ? undefined : { color: role.accentDeep }}
+                        >
+                            {cooldown > 0 ? `Resend code in ${cooldown}s` : 'Resend code'}
+                        </button>
+                    </div>
+                </form>
+            )}
+
+            <p className="mt-8 pt-6 border-t border-line text-sm text-ink-soft">
+                Remembered it?{' '}
+                <Link href={`/login/${role.key}`} className="font-semibold underline underline-offset-4" style={{ color: role.accentDeep }}>
+                    Back to sign in
+                </Link>
+            </p>
+        </AuthLayout>
+    );
+}
+</file>
+
+<file path="app/login/[role]/page.tsx">
+"use client";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { toast, Toaster } from 'react-hot-toast';
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import api from '@/lib/api';
+import { ROLES, isRole } from '@/lib/roles';
+import AuthLayout from '@/Components/AuthLayout';
+import AuthField from '@/Components/AuthField';
+
+export default function RoleLoginPage() {
+    const params = useParams<{ role: string }>();
+    const router = useRouter();
+    const valid = isRole(params.role);
+
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        if (!valid) router.replace('/');
+    }, [valid, router]);
+
+    if (!isRole(params.role)) return null;
+    const role = ROLES[params.role];
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const res = await api.post('/api/auth/login', { email, password, role: role.key });
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', JSON.stringify(res.data.user));
+            toast.success('Signed in. Opening your dashboard...');
+            setTimeout(() => router.push(role.dashboard), 700);
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not sign in. Check your connection.');
+            setLoading(false);
+        }
+    };
+
+    return (
+        <AuthLayout role={role} heading={`Sign in as ${role.title.toLowerCase()}`}>
+            <Toaster position="top-center" />
+            <form onSubmit={handleSubmit} className="space-y-5">
+                <AuthField label="Email address" icon={<Mail size={18} />} type="email" value={email} onChange={setEmail} placeholder="name@example.com" autoComplete="email" />
+                <AuthField label="Password" icon={<Lock size={18} />} type="password" value={password} onChange={setPassword} placeholder="Your password" autoComplete="current-password" />
+
+                <div className="flex justify-end -mt-2">
+                    <Link href={`/forgot-password/${role.key}`} className="text-sm font-semibold underline underline-offset-4" style={{ color: role.accentDeep }}>
+                        Forgot password?
+                    </Link>
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white transition hover:brightness-110 disabled:opacity-70 disabled:cursor-not-allowed"
+                    style={{ background: role.solid }}
+                >
+                    {loading ? <Loader2 size={18} className="animate-spin" /> : <>Sign in <ArrowRight size={18} /></>}
+                </button>
+            </form>
+
+            <p className="mt-8 pt-6 border-t border-line text-sm text-ink-soft">
+                New {role.title.toLowerCase()}?{' '}
+                <Link href={`/signup/${role.key}`} className="font-semibold underline underline-offset-4" style={{ color: role.accentDeep }}>
+                    Create an account
+                </Link>
+            </p>
+        </AuthLayout>
+    );
+}
+</file>
+
+<file path="app/signup/[role]/page.tsx">
+"use client";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { toast, Toaster } from 'react-hot-toast';
+import { User, Mail, Lock, Phone, Contact2, School, ArrowRight, Loader2, MailCheck } from 'lucide-react';
+import api from '@/lib/api';
+import { ROLES, isRole } from '@/lib/roles';
+import AuthLayout from '@/Components/AuthLayout';
+import AuthField from '@/Components/AuthField';
+import OtpInput from '@/Components/OtpInput';
+
+export default function RoleSignupPage() {
+    const params = useParams<{ role: string }>();
+    const router = useRouter();
+    const valid = isRole(params.role);
+
+    const [step, setStep] = useState<'form' | 'otp'>('form');
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({ name: '', email: '', phone: '', passportNumber: '', password: '' });
+    const [code, setCode] = useState('');
+    const [cooldown, setCooldown] = useState(0);
+
+    useEffect(() => {
+        if (!valid) router.replace('/');
+    }, [valid, router]);
+
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+        return () => clearTimeout(t);
+    }, [cooldown]);
+
+    if (!isRole(params.role)) return null;
+    const role = ROLES[params.role];
+    const set = (key: keyof typeof form) => (value: string) => setForm((f) => ({ ...f, [key]: value }));
+
+    // ---------- Step 1: details ----------
+    const handleSignup = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const res = await api.post('/api/auth/signup', { ...form, role: role.key });
+            if (res.data.requiresOtp) {
+                toast.success(res.data.msg);
+                setCooldown(res.data.resendAfterSeconds || 60);
+                setCode('');
+                setStep('otp');
+            } else {
+                toast.success(res.data.msg);
+                setTimeout(() => router.push(`/login/${role.key}`), 2200);
+            }
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Sign up failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // ---------- Step 2: code ----------
+    const handleVerify = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (code.length < 6) return toast.error('Enter all 6 digits.');
+        setLoading(true);
+        try {
+            const res = await api.post('/api/auth/verify-otp', { email: form.email, otp: code });
+            toast.success(res.data.msg);
+            setTimeout(() => router.push(`/login/${role.key}`), 1800);
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Verification failed.');
+            if (err.response?.data?.expired) setStep('form');
+            else setCode('');
+            setLoading(false);
+        }
+    };
+
+    const handleResend = async () => {
+        try {
+            const res = await api.post('/api/auth/resend-otp', { email: form.email });
+            toast.success(res.data.msg);
+            setCooldown(res.data.resendAfterSeconds || 60);
+            setCode('');
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not resend the code.');
+            if (err.response?.data?.expired) setStep('form');
+        }
+    };
+
+    const submitClass = 'w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white transition hover:brightness-110 disabled:opacity-70 disabled:cursor-not-allowed';
+
+    return (
+        <AuthLayout role={role} heading={step === 'form' ? `Create ${role.article} ${role.title.toLowerCase()} account` : 'Check your email'}>
+            <Toaster position="top-center" />
+
+            {step === 'form' ? (
+                <form onSubmit={handleSignup} className="space-y-5">
+                    <AuthField
+                        label={role.key === 'university' ? 'University name' : 'Full name'}
+                        icon={role.key === 'university' ? <School size={18} /> : <User size={18} />}
+                        value={form.name} onChange={set('name')}
+                        placeholder={role.key === 'university' ? 'Name of your institution' : 'Your full name'}
+                        autoComplete="name"
+                    />
+                    <AuthField label="Email address" icon={<Mail size={18} />} type="email" value={form.email} onChange={set('email')} placeholder="name@example.com" autoComplete="email" />
+
+                    {role.key === 'student' && (
+                        <>
+                            <AuthField label="Phone number" icon={<Phone size={18} />} type="tel" value={form.phone} onChange={set('phone')} placeholder="+92 300 1234567" autoComplete="tel" />
+                            <AuthField label="Passport number" icon={<Contact2 size={18} />} value={form.passportNumber} onChange={set('passportNumber')} placeholder="AB1234567" uppercase />
+                        </>
+                    )}
+
+                    <AuthField label="Password" icon={<Lock size={18} />} type="password" value={form.password} onChange={set('password')} placeholder="At least 6 characters" autoComplete="new-password" />
+
+                    <p className="text-sm text-ink-soft leading-relaxed">{role.signupNote}</p>
+
+                    <button type="submit" disabled={loading} className={submitClass} style={{ background: role.solid }}>
+                        {loading ? <Loader2 size={18} className="animate-spin" /> : (
+                            role.key === 'university' ? <>Send for approval <ArrowRight size={18} /></> : <>Email me a code <ArrowRight size={18} /></>
+                        )}
+                    </button>
+                </form>
+            ) : (
+                <form onSubmit={handleVerify} className="space-y-6">
+                    <div className="flex items-start gap-3 rounded-2xl p-4" style={{ background: role.soft }}>
+                        <MailCheck size={20} className="mt-0.5 shrink-0" style={{ color: role.accentDeep }} />
+                        <p className="text-sm text-ink leading-relaxed">
+                            We sent a 6-digit code to <span className="font-semibold break-all">{form.email}</span>. It is valid for 10 minutes.
+                        </p>
+                    </div>
+
+                    <OtpInput value={code} onChange={setCode} />
+
+                    <button type="submit" disabled={loading || code.length < 6} className={submitClass} style={{ background: role.solid }}>
+                        {loading ? <Loader2 size={18} className="animate-spin" /> : <>Verify and create account <ArrowRight size={18} /></>}
+                    </button>
+
+                    <div className="flex items-center justify-between text-sm">
+                        <button type="button" onClick={() => setStep('form')} className="font-semibold text-ink-soft hover:text-ink">
+                            Change email
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleResend}
+                            disabled={cooldown > 0}
+                            className="font-semibold disabled:text-ink-soft/60 disabled:cursor-not-allowed"
+                            style={cooldown > 0 ? undefined : { color: role.accentDeep }}
+                        >
+                            {cooldown > 0 ? `Resend code in ${cooldown}s` : 'Resend code'}
+                        </button>
+                    </div>
+                </form>
+            )}
+
+            <p className="mt-8 pt-6 border-t border-line text-sm text-ink-soft">
+                Already have an account?{' '}
+                <Link href={`/login/${role.key}`} className="font-semibold underline underline-offset-4" style={{ color: role.accentDeep }}>
+                    Sign in
+                </Link>
+            </p>
+        </AuthLayout>
+    );
+}
+</file>
+
+<file path="app/verify/[code]/page.tsx">
+"use client";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { BadgeCheck, Clock, XCircle, Loader2, SearchX, ArrowLeft } from 'lucide-react';
+import api from '@/lib/api';
+import Seal from '@/Components/Seal';
+
+interface Result {
+    holder: string;
+    title: string;
+    institute: string;
+    status: 'Pending' | 'Verified' | 'Rejected';
+    remarks: string;
+    hasAttestation: boolean;
+    submittedAt: string;
+    verifiedAt: string | null;
+}
+
+const STATUS = {
+    Verified: { Icon: BadgeCheck, label: 'Verified document', text: 'This document was checked and verified by Qual Check.', color: '#1e6b5a', soft: '#e6f3ef' },
+    Pending: { Icon: Clock, label: 'Verification pending', text: 'This document was submitted but has not been verified yet.', color: '#8a6212', soft: '#fbf3df' },
+    Rejected: { Icon: XCircle, label: 'Document rejected', text: 'This document did not pass verification.', color: '#b4233c', soft: '#fdecef' },
+} as const;
+
+const fmt = (d?: string | null) => (d ? new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '');
+
+export default function PublicVerifyPage() {
+    const { code } = useParams<{ code: string }>();
+    const [state, setState] = useState<'loading' | 'ok' | 'missing' | 'error'>('loading');
+    const [data, setData] = useState<Result | null>(null);
+
+    useEffect(() => {
+        let alive = true;
+        api.get(`/api/public/verify/${encodeURIComponent(code)}`)
+            .then((res) => { if (alive) { setData(res.data.data); setState('ok'); } })
+            .catch((err) => { if (alive) setState(err.response?.status === 404 ? 'missing' : 'error'); });
+        return () => { alive = false; };
+    }, [code]);
+
+    return (
+        <main className="min-h-screen flex flex-col items-center px-5 py-10 sm:py-16 relative overflow-hidden">
+            <Seal size={560} color="#b8924a" className="absolute -right-40 -top-32 opacity-[0.06] pointer-events-none" />
+
+            <div className="relative w-full max-w-lg">
+                <Link href="/" className="inline-flex items-center gap-3 text-ink mb-8">
+                    <Seal size={32} color="#b8924a" />
+                    <span className="font-display text-lg font-semibold">Qual Check</span>
+                </Link>
+
+                {state === 'loading' && (
+                    <div className="bg-white border border-line rounded-3xl p-12 flex justify-center">
+                        <Loader2 className="animate-spin text-ink-soft" />
+                    </div>
+                )}
+
+                {(state === 'missing' || state === 'error') && (
+                    <div className="bg-white border border-line rounded-3xl p-8 sm:p-10 shadow-[0_24px_60px_-30px_rgba(15,27,51,0.25)]">
+                        <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fdecef] text-[#b4233c]"><SearchX size={26} /></span>
+                        <h1 className="font-display text-3xl text-ink mt-6">
+                            {state === 'missing' ? 'Link not recognised' : 'Could not check right now'}
+                        </h1>
+                        <p className="text-ink-soft mt-3 leading-relaxed">
+                            {state === 'missing'
+                                ? 'This verification link is not valid, or the document owner turned it off. Ask them for a fresh link.'
+                                : 'The verification service did not answer. Please try again in a moment.'}
+                        </p>
+                        <Link href="/" className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-ink-soft hover:text-ink">
+                            <ArrowLeft size={16} /> Back to Qual Check
+                        </Link>
+                    </div>
+                )}
+
+                {state === 'ok' && data && (() => {
+                    const s = STATUS[data.status];
+                    return (
+                        <div className="bg-white border border-line rounded-3xl overflow-hidden shadow-[0_24px_60px_-30px_rgba(15,27,51,0.25)]">
+                            <div className="p-8 sm:p-10" style={{ background: s.soft }}>
+                                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white" style={{ color: s.color }}><s.Icon size={28} /></span>
+                                <h1 className="font-display text-3xl mt-6" style={{ color: s.color }}>{s.label}</h1>
+                                <p className="text-ink-soft mt-2 leading-relaxed">{s.text}</p>
+                            </div>
+
+                            <dl className="p-8 sm:p-10 space-y-5">
+                                <Row label="Document" value={data.title} />
+                                <Row label="Issued by" value={data.institute} />
+                                <Row label="Document holder" value={data.holder} />
+                                <Row label="Submitted" value={fmt(data.submittedAt)} />
+                                {data.verifiedAt && <Row label={data.status === 'Verified' ? 'Verified on' : 'Reviewed on'} value={fmt(data.verifiedAt)} />}
+                                {data.remarks && <Row label="Reviewer remarks" value={data.remarks} />}
+                                {data.status === 'Verified' && (
+                                    <Row label="Attestation slip" value={data.hasAttestation ? 'Issued and on file' : 'Not attached'} />
+                                )}
+                            </dl>
+
+                            <p className="px-8 sm:px-10 pb-8 text-xs text-ink-soft leading-relaxed">
+                                The holder&apos;s name is partly hidden to protect their privacy. This page always shows the current status.
+                            </p>
+                        </div>
+                    );
+                })()}
+            </div>
+        </main>
+    );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+    return (
+        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-b border-line pb-4 last:border-0 last:pb-0">
+            <dt className="text-sm text-ink-soft">{label}</dt>
+            <dd className="font-semibold text-ink sm:text-right break-words">{value}</dd>
+        </div>
+    );
+}
+</file>
+
+<file path="app/globals.css">
+@import "tailwindcss";
+
+:root {
+  --ink: #0f1b33;
+  --ink-soft: #4b5876;
+  --pearl: #f5f7fb;
+  --line: #e2e7f0;
+  --gold: #b8924a;
+  --gold-deep: #8f6d2e;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-pearl: var(--pearl);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--pearl);
+  color: var(--ink);
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* One entrance moment on the landing page: the three cards settle in together */
+@keyframes settle {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.settle { animation: settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle { animation: none; }
+}
+</file>
+
+<file path="app/layout.tsx">
+import type { Metadata } from "next";
+import { Fraunces, Manrope } from "next/font/google";
+import "./globals.css";
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Qual Check | Document Verification",
+  description: "Student, university and admin portal for verified academic documents.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${fraunces.variable} ${manrope.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}
+</file>
+
+<file path="Components/AuthField.tsx">
+"use client";
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+
+interface Props {
+    label: string;
+    icon: React.ReactNode;
+    type?: string;
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    autoComplete?: string;
+    uppercase?: boolean;
+}
+
+export default function AuthField({ label, icon, type = 'text', value, onChange, placeholder, autoComplete, uppercase }: Props) {
+    const [show, setShow] = useState(false);
+    const isPassword = type === 'password';
+
+    return (
+        <label className="block">
+            <span className="block text-sm font-semibold text-ink mb-1.5">{label}</span>
+            <span className="relative block">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-soft/60 pointer-events-none">{icon}</span>
+                <input
+                    type={isPassword && show ? 'text' : type}
+                    required
+                    value={value}
+                    autoComplete={autoComplete}
+                    placeholder={placeholder}
+                    onChange={(e) => onChange(e.target.value)}
+                    className={`w-full h-12 bg-white border border-line rounded-xl pl-12 ${isPassword ? 'pr-12' : 'pr-4'} text-[15px] text-ink placeholder:text-ink-soft/40 outline-none transition focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)] ${uppercase ? 'uppercase placeholder:normal-case' : ''}`}
+                />
+                {isPassword && (
+                    <button
+                        type="button"
+                        onClick={() => setShow(!show)}
+                        aria-label={show ? 'Hide password' : 'Show password'}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-ink-soft/60 hover:text-ink rounded-lg"
+                    >
+                        {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                )}
+            </span>
+        </label>
+    );
+}
+</file>
+
+<file path="Components/AuthLayout.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { ArrowLeft, GraduationCap, School, ShieldCheck } from 'lucide-react';
+import Seal from './Seal';
+import { RoleConfig } from '@/lib/roles';
+
+const icons = {
+    student: GraduationCap,
+    university: School,
+    admin: ShieldCheck,
+};
+
+export default function AuthLayout({ role, heading, children }: { role: RoleConfig; heading: string; children: React.ReactNode }) {
+    const Icon = icons[role.key];
+    const vars = {
+        '--accent': role.accent,
+        '--accent-deep': role.accentDeep,
+        '--accent-soft': role.soft,
+    } as React.CSSProperties;
+
+    return (
+        <main style={vars} className="min-h-screen grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+            {/* Brand panel */}
+            <aside className="relative hidden lg:flex flex-col justify-between overflow-hidden p-12" style={{ background: role.soft }}>
+                <Link href="/" className="inline-flex items-center gap-3 text-ink w-fit">
+                    <Seal size={34} color={role.accent} />
+                    <span className="font-display text-xl font-semibold">Qual Check</span>
+                </Link>
+
+                <div className="relative z-10 max-w-sm">
+                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm" style={{ color: role.accentDeep }}>
+                        <Icon size={26} />
+                    </span>
+                    <h2 className="font-display text-4xl leading-tight text-ink mt-6">{role.title} portal</h2>
+                    <p className="text-ink-soft mt-3 leading-relaxed">{role.blurb}</p>
+                </div>
+
+                <Seal size={420} color={role.accent} className="absolute -right-24 -bottom-24 opacity-[0.09]" />
+                <p className="relative z-10 text-sm text-ink-soft">Every document is checked before it is marked verified.</p>
+            </aside>
+
+            {/* Form panel */}
+            <section className="flex items-center justify-center px-5 py-10 sm:px-10 bg-white lg:bg-pearl">
+                <div className="w-full max-w-md">
+                    <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft hover:text-ink mb-8">
+                        <ArrowLeft size={16} /> All portals
+                    </Link>
+                    <div className="bg-white lg:border lg:border-line lg:rounded-3xl lg:p-10 lg:shadow-[0_24px_60px_-30px_rgba(15,27,51,0.25)]">
+                        <h1 className="font-display text-3xl text-ink">{heading}</h1>
+                        <div className="mt-8">{children}</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
+}
+</file>
+
+<file path="Components/OtpInput.tsx">
+"use client";
+import React, { useEffect, useRef } from 'react';
+
+// Six separate boxes that behave like one field: typing, backspace, arrows and pasting all work.
+export default function OtpInput({ value, onChange, autoFocus = true }: { value: string; onChange: (v: string) => void; autoFocus?: boolean }) {
+    const refs = useRef<(HTMLInputElement | null)[]>([]);
+    const digits = Array.from({ length: 6 }, (_, i) => value[i] || '');
+
+    useEffect(() => {
+        if (autoFocus) refs.current[0]?.focus();
+    }, [autoFocus]);
+
+    const write = (index: number, chars: string) => {
+        const next = [...digits];
+        chars.split('').slice(0, 6 - index).forEach((ch, i) => { next[index + i] = ch; });
+        onChange(next.join(''));
+        refs.current[Math.min(index + chars.length, 5)]?.focus();
+    };
+
+    const onKey = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Backspace') {
+            e.preventDefault();
+            const next = [...digits];
+            if (next[index]) next[index] = '';
+            else if (index > 0) { next[index - 1] = ''; refs.current[index - 1]?.focus(); }
+            onChange(next.join(''));
+        } else if (e.key === 'ArrowLeft' && index > 0) refs.current[index - 1]?.focus();
+        else if (e.key === 'ArrowRight' && index < 5) refs.current[index + 1]?.focus();
+    };
+
+    return (
+        <div className="flex justify-between gap-2" role="group" aria-label="Verification code">
+            {digits.map((d, i) => (
+                <input
+                    key={i}
+                    ref={(el) => { refs.current[i] = el; }}
+                    value={d}
+                    inputMode="numeric"
+                    autoComplete={i === 0 ? 'one-time-code' : 'off'}
+                    aria-label={`Digit ${i + 1}`}
+                    onChange={(e) => { const c = e.target.value.replace(/\D/g, ''); if (c) write(i, c); }}
+                    onKeyDown={(e) => onKey(i, e)}
+                    onFocus={(e) => e.target.select()}
+                    className="w-full min-w-0 h-14 text-center text-2xl font-semibold text-ink bg-white border border-line rounded-xl outline-none transition focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]"
+                />
+            ))}
+        </div>
+    );
+}
+</file>
+
+<file path="Components/Seal.tsx">
+// Engraved-style seal used as the brand mark and as a quiet watermark.
+export default function Seal({ size = 40, color = 'currentColor', className = '' }: { size?: number; color?: string; className?: string }) {
+    const ticks = Array.from({ length: 36 }, (_, i) => i * 10);
+    return (
+        <svg width={size} height={size} viewBox="0 0 100 100" fill="none" className={className} aria-hidden="true">
+            <circle cx="50" cy="50" r="47" stroke={color} strokeWidth="1.5" />
+            <circle cx="50" cy="50" r="40" stroke={color} strokeWidth="0.75" />
+            {ticks.map((deg) => (
+                <line
+                    key={deg}
+                    x1="50" y1="5" x2="50" y2={deg % 30 === 0 ? 12 : 9}
+                    stroke={color} strokeWidth="1"
+                    transform={`rotate(${deg} 50 50)`}
+                />
+            ))}
+            <path d="M33 51.5l11 11 23-25" stroke={color} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+</file>
+
+<file path="Components/ShareModal.tsx">
+"use client";
+import React, { useEffect, useState } from 'react';
+import QRCode from 'qrcode';
+import { X, Copy, Check, Loader2, Link2Off, Download } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import api from '@/lib/api';
+
+interface Props {
+    doc: { _id: string; title: string; status: string } | null;
+    onClose: () => void;
+}
+
+// Gives the student a public link + QR code for ONE document. Anyone with it can see its status.
+export default function ShareModal({ doc, onClose }: Props) {
+    const [link, setLink] = useState('');
+    const [qr, setQr] = useState('');
+    const [busy, setBusy] = useState(true);
+    const [copied, setCopied] = useState(false);
+
+    useEffect(() => {
+        if (!doc) return;
+        let alive = true;
+        setBusy(true); setLink(''); setQr(''); setCopied(false);
+        (async () => {
+            try {
+                const res = await api.post(`/api/student/document/${doc._id}/share`);
+                const url = `${window.location.origin}/verify/${res.data.code}`;
+                const img = await QRCode.toDataURL(url, { width: 360, margin: 1, color: { dark: '#0f1b33', light: '#ffffff' } });
+                if (alive) { setLink(url); setQr(img); }
+            } catch (err: any) {
+                toast.error(err.response?.data?.msg || 'Could not create the link.');
+                onClose();
+            } finally {
+                if (alive) setBusy(false);
+            }
+        })();
+        return () => { alive = false; };
+    }, [doc, onClose]);
+
+    useEffect(() => {
+        if (!doc) return;
+        const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [doc, onClose]);
+
+    if (!doc) return null;
+
+    const copy = async () => {
+        try {
+            await navigator.clipboard.writeText(link);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1800);
+        } catch {
+            toast.error('Copy failed. Select the link and copy it manually.');
+        }
+    };
+
+    const disable = async () => {
+        try {
+            await api.delete(`/api/student/document/${doc._id}/share`);
+            toast.success('Public link turned off.');
+            onClose();
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not turn the link off.');
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-ink/40 backdrop-blur-sm" onClick={onClose}>
+            <div onClick={(e) => e.stopPropagation()} className="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[92vh] overflow-y-auto">
+                <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                        <h2 className="font-display text-2xl text-ink">Share verification</h2>
+                        <p className="text-sm text-ink-soft mt-1 truncate">{doc.title}</p>
+                    </div>
+                    <button onClick={onClose} aria-label="Close" className="p-2 -mr-2 -mt-2 rounded-xl text-ink-soft hover:bg-pearl"><X size={20} /></button>
+                </div>
+
+                <div className="mt-6 flex justify-center">
+                    <div className="h-52 w-52 rounded-2xl border border-line bg-white flex items-center justify-center">
+                        {busy ? <Loader2 className="animate-spin text-ink-soft" /> : qr && <img src={qr} alt="QR code for the verification link" className="h-48 w-48" />}
+                    </div>
+                </div>
+
+                <div className="mt-5 flex gap-2">
+                    <input readOnly value={link} aria-label="Verification link" className="min-w-0 flex-1 h-11 bg-pearl border border-line rounded-xl px-3 text-sm text-ink outline-none" onFocus={(e) => e.target.select()} />
+                    <button onClick={copy} disabled={!link} className="h-11 px-4 inline-flex items-center gap-2 rounded-xl font-semibold text-white bg-[var(--accent)] hover:brightness-110 disabled:opacity-60">
+                        {copied ? <Check size={16} /> : <Copy size={16} />} {copied ? 'Copied' : 'Copy'}
+                    </button>
+                </div>
+
+                {qr && (
+                    <a href={qr} download={`verification-${doc._id}.png`} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-deep)] hover:underline underline-offset-4">
+                        <Download size={16} /> Save QR code as image
+                    </a>
+                )}
+
+                <p className="mt-5 text-sm text-ink-soft leading-relaxed">
+                    Anyone with this link can see the document title, issuer, its current status and your name with most letters hidden. Your email, passport number and the file itself stay private.
+                </p>
+
+                <button onClick={disable} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-rose-700 hover:underline underline-offset-4">
+                    <Link2Off size={16} /> Turn this link off
+                </button>
+            </div>
+        </div>
+    );
+}
+</file>
+
+<file path="Components/VerifyLookup.tsx">
+"use client";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ScanSearch, ArrowRight } from 'lucide-react';
+
+// Employers / anyone with a shared link or code can check a document without an account.
+export default function VerifyLookup() {
+    const router = useRouter();
+    const [value, setValue] = useState('');
+
+    const go = (e: React.FormEvent) => {
+        e.preventDefault();
+        const code = value.trim().split('/').filter(Boolean).pop();
+        if (code) router.push(`/verify/${encodeURIComponent(code)}`);
+    };
+
+    return (
+        <form onSubmit={go} className="flex flex-col md:flex-row md:items-center gap-5 bg-white border border-line rounded-3xl p-6 sm:p-8 shadow-[0_24px_60px_-34px_rgba(15,27,51,0.3)]">
+            <span className="hidden sm:inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#f8f1e2] text-gold-deep"><ScanSearch size={26} /></span>
+            <div className="md:flex-1">
+                <h2 className="font-display text-xl text-ink">Checking someone else&apos;s document?</h2>
+                <p className="text-sm text-ink-soft mt-1">Paste the verification link or code you were given. No account needed.</p>
+            </div>
+            <div className="flex gap-3 md:w-[26rem]">
+                <input
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder="Verification link or code"
+                    aria-label="Verification link or code"
+                    className="min-w-0 flex-1 h-12 bg-white border border-line rounded-xl px-4 text-[15px] text-ink placeholder:text-ink-soft/40 outline-none focus:border-gold focus:ring-4 focus:ring-[#f8f1e2]"
+                />
+                <button type="submit" className="h-12 px-5 inline-flex items-center gap-2 rounded-xl font-semibold text-white bg-ink hover:brightness-125 transition">
+                    Check <ArrowRight size={18} />
+                </button>
+            </div>
+        </form>
+    );
+}
+</file>
+
+<file path="lib/roles.ts">
+export type RoleKey = 'student' | 'university' | 'admin';
+
+export interface RoleConfig {
+    key: RoleKey;
+    title: string;
+    blurb: string;
+    signupNote: string;
+    accent: string;      // main colour
+    solid: string;       // button fill (white text stays readable)
+    article: string;     // 'a' / 'an'
+    accentDeep: string;  // text-safe on white
+    soft: string;        // tinted background
+    dashboard: string;
+}
+
+export const ROLES: Record<RoleKey, RoleConfig> = {
+    student: {
+        key: 'student',
+        title: 'Student',
+        blurb: 'Upload your academic documents and follow each one through verification.',
+        signupNote: 'We will email you a 6-digit code to confirm your address.',
+        accent: '#2c4a8c',
+        solid: '#2c4a8c',
+        article: 'a',
+        accentDeep: '#223a70',
+        soft: '#eaf0fb',
+        dashboard: '/student-dashboard',
+    },
+    university: {
+        key: 'university',
+        title: 'University',
+        blurb: 'Look up a student by passport number and confirm their verified records.',
+        signupNote: 'New university accounts are approved by the admin before first sign in.',
+        accent: '#1e6b5a',
+        solid: '#1e6b5a',
+        article: 'a',
+        accentDeep: '#17554a',
+        soft: '#e6f3ef',
+        dashboard: '/university/dashboard',
+    },
+    admin: {
+        key: 'admin',
+        title: 'Admin',
+        blurb: 'Review documents, manage users and approve university accounts.',
+        signupNote: 'Only one admin account can exist. We will email you a 6-digit code.',
+        accent: '#b8924a',
+        solid: '#8f6d2e',
+        article: 'an',
+        accentDeep: '#7d5f24',
+        soft: '#f8f1e2',
+        dashboard: '/admin',
+    },
+};
+
+export const isRole = (value: unknown): value is RoleKey =>
+    typeof value === 'string' && value in ROLES;
+</file>
+
+<file path="app/student-dashboard/PaymentSetup.tsx">
+"use client";
+import React, { useState } from 'react';
+import { CreditCard, CheckCircle, Send, Copy } from 'lucide-react';
+import api from '@/lib/api';
+import { toast } from 'react-hot-toast';
+
+export default function PaymentStep({ onComplete }: { onComplete: () => void }) {
+    const [tid, setTid] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!file || !tid) return toast.error("TID and Screenshot are required!");
+
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('transactionId', tid);
+
+        try {
+            await api.post('/api/student/submit-payment', formData);
+            toast.success("Payment proof submitted successfully!");
+            onComplete();
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || "Submission failed");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="p-8 space-y-6 animate-in slide-in-from-right duration-500">
+            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-[2rem] text-white shadow-xl relative overflow-hidden">
+                <div className="relative z-10">
+                    <p className="text-xs font-bold opacity-80 uppercase tracking-widest">JazzCash / Easypaisa</p>
+                    <h4 className="text-2xl font-black mt-1">0300-1234567</h4>
+                    <p className="text-sm opacity-90">Title: Maaz Hashmi</p>
+                </div>
+                <CreditCard className="absolute -right-4 -bottom-4 opacity-10" size={100} />
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label className="text-sm font-bold text-slate-700 ml-1">Transaction ID (TID)</label>
+                    <input
+                        type="text"
+                        className="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl outline-none focus:border-indigo-500 font-mono"
+                        placeholder="11 Digit ID"
+                        value={tid}
+                        onChange={(e) => setTid(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label className="text-sm font-bold text-slate-700 ml-1">Upload Screenshot</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        className="w-full text-sm text-slate-500 file:mr-4 file:py-3 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+                        onChange={(e) => setFile(e.target.files?.[0] || null)}
+                        required
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-slate-900 text-white font-bold py-5 rounded-2xl shadow-lg flex items-center justify-center gap-2 hover:bg-black transition-all"
+                >
+                    {loading ? "Verifying..." : <><Send size={18} /> Confirm Payment</>}
+                </button>
+            </form>
+        </div>
+    );
+}
+</file>
+
+<file path="app/page.tsx">
+import Link from 'next/link';
+import React from 'react';
+import { ArrowRight, GraduationCap, School, ShieldCheck } from 'lucide-react';
+import Seal from '@/Components/Seal';
+import VerifyLookup from '@/Components/VerifyLookup';
+import { ROLES, RoleKey } from '@/lib/roles';
+
+const icons = { student: GraduationCap, university: School, admin: ShieldCheck };
+const order: RoleKey[] = ['student', 'university', 'admin'];
+
+export default function Home() {
+  return (
+    <main className="relative min-h-screen overflow-hidden">
+      <Seal size={640} color="#b8924a" className="absolute -right-48 -top-40 opacity-[0.07] pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-6 sm:px-10 py-8 md:py-10">
+        <header className="flex items-center gap-3">
+          <Seal size={36} color="#b8924a" />
+          <span className="font-display text-xl font-semibold text-ink">Qual Check</span>
+        </header>
+
+        <section className="mt-16 md:mt-24 max-w-2xl">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.08] text-ink">
+            Academic credentials, verified at the source.
+          </h1>
+          <p className="mt-6 text-lg text-ink-soft leading-relaxed max-w-xl">
+            Pick the portal that matches your account. Each one has its own sign in, and an account can only be used on its own card.
+          </p>
+        </section>
+
+        <section className="mt-14 md:mt-20 grid gap-6 md:grid-cols-3">
+          {order.map((key, i) => {
+            const role = ROLES[key];
+            const Icon = icons[key];
+            const vars = {
+              '--accent': role.accent,
+              '--accent-deep': role.accentDeep,
+              '--accent-soft': role.soft,
+              animationDelay: `${i * 90}ms`,
+            } as React.CSSProperties;
+
+            return (
+              <article
+                key={key}
+                style={vars}
+                className="settle flex flex-col bg-white border border-line rounded-3xl p-8 shadow-[0_24px_60px_-34px_rgba(15,27,51,0.3)] transition-shadow hover:shadow-[0_30px_70px_-30px_rgba(15,27,51,0.38)]"
+              >
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: role.soft, color: role.accentDeep }}>
+                  <Icon size={26} />
+                </span>
+
+                <h2 className="font-display text-2xl text-ink mt-6">{role.title}</h2>
+                <p className="text-ink-soft leading-relaxed mt-2 flex-1">{role.blurb}</p>
+
+                <Link
+                  href={`/login/${key}`}
+                  className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-xl font-semibold text-white transition hover:brightness-110 active:scale-[0.99]"
+                  style={{ background: role.solid }}
+                >
+                  Sign in as {role.title.toLowerCase()}
+                  <ArrowRight size={18} />
+                </Link>
+                <Link
+                  href={`/signup/${key}`}
+                  className="mt-3 inline-flex h-11 items-center justify-center rounded-xl text-sm font-semibold border border-line text-ink hover:border-[var(--accent)] hover:text-[var(--accent-deep)] transition"
+                >
+                  Create {role.article} {role.title.toLowerCase()} account
+                </Link>
+              </article>
+            );
+          })}
+        </section>
+
+        <section className="mt-6">
+          <VerifyLookup />
+        </section>
+
+        <footer className="mt-16 pb-6 text-sm text-ink-soft">
+          Qual Check document verification portal
+        </footer>
+      </div>
+    </main>
+  );
+}
+</file>
+
+<file path="lib/api.ts">
+import axios from 'axios';
+
+// ============================================================
+// API INSTANCE CONFIGURATION (PRODUCTION READY)
+// ============================================================
+
+const api = axios.create({
+    // Agar .env mein URL hai to wo use karega, warna fallback localhost par
+    baseURL: (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api').replace(/\/api\/?$/i, ''),
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    // Production mein cookies/sessions ke liye true hona zaroori hai
+    withCredentials: true
+});
+
+/**
+ * REQUEST INTERCEPTOR
+ * Har request ke sath 'x-auth-token' header automatic attach karega
+ */
+api.interceptors.request.use(
+    (config) => {
+        // SSR (Next.js) safe check: Check if window is defined
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            if (token) {
+                config.headers['x-auth-token'] = token;
+            }
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+/**
+ * RESPONSE INTERCEPTOR (Optional but Recommended)
+ * Agar 401 (Unauthorized) error aaye to logout ya redirect handle karne ke liye
+ */
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            // Token expire ho gaya ho to redirect logic yahan aa sakti hai
+            console.warn("Session expired or Unauthorized access.");
+        }
+        return Promise.reject(error);
+    }
+);
+
+export default api;
+</file>
+
+<file path="package.json">
+{
+  "name": "document-verification-crm",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "axios": "^1.14.0",
+    "lucide-react": "^1.16.0",
+    "next": "16.2.1",
+    "qrcode": "^1.5.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hot-toast": "^2.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="Components/UploadModal.tsx">
+"use client";
+import React, { useEffect, useRef, useState } from 'react';
+import { X, UploadCloud, FileText, Loader2 } from 'lucide-react';
+import api from '@/lib/api';
+import { toast } from 'react-hot-toast';
+
+interface Props {
+    isOpen: boolean;
+    onClose: () => void;
+    refreshData: () => void;
+    // kept so older callers still compile
+    userStatus?: { isPaid: boolean; isApproved: boolean; paymentStatus: string };
+}
+
+const MAX_MB = 10;
+const ACCEPT = '.pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx';
+
+export default function UploadModal({ isOpen, onClose, refreshData }: Props) {
+    const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState<File | null>(null);
+    const [title, setTitle] = useState('');
+    const [institute, setInstitute] = useState('');
+    const [dragging, setDragging] = useState(false);
+    const input = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e: KeyboardEvent) => e.key === 'Escape' && !loading && onClose();
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [isOpen, loading, onClose]);
+
+    if (!isOpen) return null;
+
+    const pick = (f?: File | null) => {
+        if (!f) return;
+        if (f.size > MAX_MB * 1024 * 1024) return toast.error(`File is too large (max ${MAX_MB} MB).`);
+        setFile(f);
+        if (!title) setTitle(f.name.replace(/\.[^.]+$/, ''));
+    };
+
+    const reset = () => { setFile(null); setTitle(''); setInstitute(''); };
+
+    const submit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!file) return toast.error('Please choose a document first.');
+        setLoading(true);
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('title', title);
+        fd.append('institute', institute);
+        try {
+            await api.post('/api/student/upload', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+            toast.success('Document uploaded. It is now waiting for review.');
+            refreshData();
+            reset();
+            onClose();
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Upload failed. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-ink/40 backdrop-blur-sm" onClick={() => !loading && onClose()}>
+            <form
+                onSubmit={submit}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[92vh] overflow-y-auto"
+            >
+                <div className="flex items-start justify-between">
+                    <div>
+                        <h2 className="font-display text-2xl text-ink">Upload a document</h2>
+                        <p className="text-sm text-ink-soft mt-1">PDF, image, Word or Excel, up to {MAX_MB} MB.</p>
+                    </div>
+                    <button type="button" onClick={onClose} disabled={loading} aria-label="Close" className="p-2 -mr-2 -mt-2 rounded-xl text-ink-soft hover:bg-pearl"><X size={20} /></button>
+                </div>
+
+                <div
+                    onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+                    onDragLeave={() => setDragging(false)}
+                    onDrop={(e) => { e.preventDefault(); setDragging(false); pick(e.dataTransfer.files?.[0]); }}
+                    onClick={() => input.current?.click()}
+                    className={`mt-6 cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition ${dragging ? 'border-[var(--accent)] bg-[var(--accent-soft)]' : 'border-line hover:border-[var(--accent)]'}`}
+                >
+                    <input ref={input} type="file" accept={ACCEPT} className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
+                    {file ? (
+                        <div className="flex items-center justify-center gap-3 text-ink">
+                            <FileText size={22} className="text-[var(--accent)] shrink-0" />
+                            <span className="font-semibold truncate max-w-[16rem]">{file.name}</span>
+                            <span className="text-xs text-ink-soft shrink-0">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                        </div>
+                    ) : (
+                        <>
+                            <UploadCloud size={30} className="mx-auto text-[var(--accent)]" />
+                            <p className="mt-3 font-semibold text-ink">Drop a file here or click to browse</p>
+                        </>
+                    )}
+                </div>
+
+                <div className="mt-5 space-y-4">
+                    <label className="block">
+                        <span className="block text-sm font-semibold text-ink mb-1.5">Document title</span>
+                        <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. BSc Computer Science degree"
+                            className="w-full h-12 bg-white border border-line rounded-xl px-4 text-[15px] text-ink outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]" />
+                    </label>
+                    <label className="block">
+                        <span className="block text-sm font-semibold text-ink mb-1.5">Issuing institute</span>
+                        <input required value={institute} onChange={(e) => setInstitute(e.target.value)} placeholder="Name of the university or board"
+                            className="w-full h-12 bg-white border border-line rounded-xl px-4 text-[15px] text-ink outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]" />
+                    </label>
+                </div>
+
+                <button type="submit" disabled={loading || !file} className="mt-6 w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white bg-[var(--accent)] hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed transition">
+                    {loading ? <Loader2 size={18} className="animate-spin" /> : 'Submit for verification'}
+                </button>
+            </form>
+        </div>
+    );
+}
+</file>
+
+<file path="app/signup/page.tsx">
+import { redirect } from 'next/navigation';
+
+export default function SignupRedirect() {
+    redirect('/');
+}
+</file>
+
+<file path="app/student-dashboard/page.tsx">
+"use client";
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+    FileUp, LogOut, Loader2, FileText, Search, Share2, Trash2, ExternalLink,
+    BadgeCheck, Clock, XCircle, Files, RefreshCw,
+} from 'lucide-react';
+import { toast, Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
+import { ROLES } from '@/lib/roles';
+import Seal from '@/Components/Seal';
+import UploadModal from '@/Components/UploadModal';
+import ShareModal from '@/Components/ShareModal';
+
+type Status = 'Pending' | 'Verified' | 'Rejected';
+interface Doc {
+    _id: string;
+    title: string;
+    institute: string;
+    status: Status;
+    remarks?: string;
+    fileUrl?: string;
+    verifySlip?: string;
+    createdAt: string;
+}
+
+const role = ROLES.student;
+const FILTERS: ('All' | Status)[] = ['All', 'Pending', 'Verified', 'Rejected'];
+const BADGE: Record<Status, { cls: string; Icon: typeof Clock }> = {
+    Verified: { cls: 'bg-[#e6f3ef] text-[#17554a]', Icon: BadgeCheck },
+    Pending: { cls: 'bg-[#fbf3df] text-[#8a6212]', Icon: Clock },
+    Rejected: { cls: 'bg-[#fdecef] text-[#b4233c]', Icon: XCircle },
+};
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+export default function StudentDashboard() {
+    const router = useRouter();
+    const [docs, setDocs] = useState<Doc[]>([]);
+    const [name, setName] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [uploadOpen, setUploadOpen] = useState(false);
+    const [shareDoc, setShareDoc] = useState<Doc | null>(null);
+    const [deleteDoc, setDeleteDoc] = useState<Doc | null>(null);
+    const [deleting, setDeleting] = useState(false);
+    const [query, setQuery] = useState('');
+    const [filter, setFilter] = useState<'All' | Status>('All');
+
+    const load = useCallback(async () => {
+        setLoading(true);
+        try {
+            const res = await api.get('/api/student/dashboard');
+            setDocs(res.data?.documents || []);
+            setName(res.data?.name || '');
+        } catch (err: any) {
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                router.replace('/login/student');
+                return;
+            }
+            toast.error(err.response?.data?.msg || 'Could not load your documents.');
+        } finally {
+            setLoading(false);
+        }
+    }, [router]);
+
+    useEffect(() => { load(); }, [load]);
+
+    const counts = useMemo(() => ({
+        All: docs.length,
+        Pending: docs.filter((d) => d.status === 'Pending').length,
+        Verified: docs.filter((d) => d.status === 'Verified').length,
+        Rejected: docs.filter((d) => d.status === 'Rejected').length,
+    }), [docs]);
+
+    const shown = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        return docs
+            .filter((d) => filter === 'All' || d.status === filter)
+            .filter((d) => !q || d.title.toLowerCase().includes(q) || d.institute.toLowerCase().includes(q))
+            .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+    }, [docs, query, filter]);
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        router.push('/');
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteDoc) return;
+        setDeleting(true);
+        try {
+            await api.delete(`/api/student/document/${deleteDoc._id}`);
+            toast.success('Document removed.');
+            setDocs((d) => d.filter((x) => x._id !== deleteDoc._id));
+            setDeleteDoc(null);
+        } catch (err: any) {
+            toast.error(err.response?.data?.msg || 'Could not delete the document.');
+        } finally {
+            setDeleting(false);
+        }
+    };
+
+    const vars = { '--accent': role.accent, '--accent-deep': role.accentDeep, '--accent-soft': role.soft } as React.CSSProperties;
+    const firstName = name.split(' ')[0];
+
+    return (
+        <div style={vars} className="min-h-screen">
+            <Toaster position="top-center" />
+            <UploadModal isOpen={uploadOpen} onClose={() => setUploadOpen(false)} refreshData={load} />
+            <ShareModal doc={shareDoc} onClose={() => setShareDoc(null)} />
+
+            {deleteDoc && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-ink/40 backdrop-blur-sm" onClick={() => !deleting && setDeleteDoc(null)}>
+                    <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm bg-white rounded-3xl p-7 shadow-2xl">
+                        <h2 className="font-display text-xl text-ink">Remove this document?</h2>
+                        <p className="text-sm text-ink-soft mt-2 leading-relaxed"><span className="font-semibold text-ink">{deleteDoc.title}</span> and its public link will be deleted. This cannot be undone.</p>
+                        <div className="mt-6 flex gap-3">
+                            <button onClick={() => setDeleteDoc(null)} disabled={deleting} className="flex-1 h-11 rounded-xl border border-line font-semibold text-ink hover:bg-pearl">Keep it</button>
+                            <button onClick={confirmDelete} disabled={deleting} className="flex-1 h-11 rounded-xl font-semibold text-white bg-rose-700 hover:brightness-110 inline-flex items-center justify-center">
+                                {deleting ? <Loader2 size={18} className="animate-spin" /> : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Top bar */}
+            <header className="bg-white border-b border-line">
+                <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Seal size={30} color="#b8924a" />
+                        <span className="font-display text-lg font-semibold text-ink">Qual Check</span>
+                    </div>
+                    <button onClick={logout} className="inline-flex items-center gap-2 h-10 px-4 rounded-xl border border-line text-sm font-semibold text-ink-soft hover:text-rose-700 hover:border-rose-200 transition">
+                        <LogOut size={16} /> Sign out
+                    </button>
+                </div>
+            </header>
+
+            <main className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
+                    <div>
+                        <h1 className="font-display text-3xl sm:text-4xl text-ink">{firstName ? `Welcome back, ${firstName}` : 'Your documents'}</h1>
+                        <p className="text-ink-soft mt-2">Upload a document, follow its review and share a verified link.</p>
+                    </div>
+                    <button onClick={() => setUploadOpen(true)} className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl font-semibold text-white bg-[var(--accent)] hover:brightness-110 active:scale-[0.99] transition">
+                        <FileUp size={18} /> Upload document
+                    </button>
+                </div>
+
+                <section className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Stat label="All documents" value={counts.All} Icon={Files} tone="text-[var(--accent-deep)] bg-[var(--accent-soft)]" />
+                    <Stat label="Awaiting review" value={counts.Pending} Icon={Clock} tone="text-[#8a6212] bg-[#fbf3df]" />
+                    <Stat label="Verified" value={counts.Verified} Icon={BadgeCheck} tone="text-[#17554a] bg-[#e6f3ef]" />
+                    <Stat label="Rejected" value={counts.Rejected} Icon={XCircle} tone="text-[#b4233c] bg-[#fdecef]" />
+                </section>
+
+                <section className="mt-8 bg-white border border-line rounded-3xl overflow-hidden shadow-[0_24px_60px_-40px_rgba(15,27,51,0.35)]">
+                    <div className="p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center gap-4 border-b border-line">
+                        <div className="flex flex-wrap gap-2 lg:flex-1">
+                            {FILTERS.map((f) => (
+                                <button
+                                    key={f}
+                                    onClick={() => setFilter(f)}
+                                    className={`h-9 px-4 rounded-full text-sm font-semibold transition ${filter === f ? 'bg-ink text-white' : 'bg-pearl text-ink-soft hover:text-ink'}`}
+                                >
+                                    {f} <span className="opacity-60 ml-1">{counts[f]}</span>
+                                </button>
+                            ))}
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="relative flex-1 lg:w-72">
+                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-soft/60" />
+                                <input
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Search title or institute"
+                                    aria-label="Search documents"
+                                    className="w-full h-10 pl-10 pr-3 bg-white border border-line rounded-xl text-sm text-ink outline-none focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]"
+                                />
+                            </div>
+                            <button onClick={load} aria-label="Refresh" className="h-10 w-10 inline-flex items-center justify-center rounded-xl border border-line text-ink-soft hover:text-ink">
+                                <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {loading && docs.length === 0 ? (
+                        <div className="py-24 flex justify-center"><Loader2 className="animate-spin text-ink-soft" /></div>
+                    ) : shown.length === 0 ? (
+                        <div className="py-20 px-6 text-center">
+                            <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pearl text-ink-soft"><FileText size={26} /></span>
+                            <h3 className="font-display text-xl text-ink mt-5">{docs.length === 0 ? 'No documents yet' : 'Nothing matches'}</h3>
+                            <p className="text-ink-soft mt-1">{docs.length === 0 ? 'Upload your first document to start the verification.' : 'Try another filter or search word.'}</p>
+                        </div>
+                    ) : (
+                        <ul className="divide-y divide-line">
+                            {shown.map((doc) => {
+                                const b = BADGE[doc.status];
+                                return (
+                                    <li key={doc._id} className="p-5 sm:p-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                                        <div className="flex items-start gap-4 md:flex-1 min-w-0">
+                                            <span className="h-11 w-11 shrink-0 rounded-xl bg-[var(--accent-soft)] text-[var(--accent-deep)] inline-flex items-center justify-center"><FileText size={20} /></span>
+                                            <div className="min-w-0">
+                                                <p className="font-semibold text-ink truncate">{doc.title}</p>
+                                                <p className="text-sm text-ink-soft truncate">{doc.institute} · uploaded {fmt(doc.createdAt)}</p>
+                                                {doc.remarks && doc.status !== 'Pending' && <p className="text-sm text-ink-soft mt-1.5 italic">&ldquo;{doc.remarks}&rdquo;</p>}
+                                            </div>
+                                        </div>
+
+                                        <span className={`self-start md:self-auto inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-sm font-semibold ${b.cls}`}>
+                                            <b.Icon size={15} /> {doc.status}
+                                        </span>
+
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <button onClick={() => setShareDoc(doc)} className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-[var(--accent-deep)] bg-[var(--accent-soft)] hover:brightness-95">
+                                                <Share2 size={15} /> Share
+                                            </button>
+                                            {doc.fileUrl && (
+                                                <a href={doc.fileUrl} target="_blank" rel="noreferrer" className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-ink-soft border border-line hover:text-ink">
+                                                    <ExternalLink size={15} /> Original
+                                                </a>
+                                            )}
+                                            {doc.verifySlip && (
+                                                <a href={doc.verifySlip} target="_blank" rel="noreferrer" className="h-9 px-3.5 inline-flex items-center gap-2 rounded-xl text-sm font-semibold text-[#17554a] border border-[#cfe6df] hover:bg-[#e6f3ef]">
+                                                    <BadgeCheck size={15} /> Slip
+                                                </a>
+                                            )}
+                                            <button onClick={() => setDeleteDoc(doc)} aria-label={`Delete ${doc.title}`} className="h-9 w-9 inline-flex items-center justify-center rounded-xl text-ink-soft hover:text-rose-700 hover:bg-rose-50">
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                </section>
+            </main>
+        </div>
+    );
+}
+
+function Stat({ label, value, Icon, tone }: { label: string; value: number; Icon: typeof Clock; tone: string }) {
+    return (
+        <div className="bg-white border border-line rounded-2xl p-5">
+            <span className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${tone}`}><Icon size={20} /></span>
+            <p className="font-display text-3xl text-ink mt-4">{value}</p>
+            <p className="text-sm text-ink-soft mt-0.5">{label}</p>
+        </div>
+    );
+}
+</file>
+
+<file path="app/login/page.tsx">
+import { redirect } from 'next/navigation';
+
+// Login now lives on the landing page cards (/login/student, /login/university, /login/admin)
+export default function LoginRedirect() {
+    redirect('/');
+}
+</file>
+
+<file path="app/student-dashboard/layout.tsx">
+// The student dashboard now draws its own header (see page.tsx), so this layout only passes children through.
+export default function StudentLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
+}
+</file>
+
+<file path="app/admin/page.tsx">
+"use client";
+
+import React, { useState, useEffect, useCallback } from 'react';
+import api from '@/lib/api';
+import {
+    Users, School, Wallet, Search, Clock,
+    CheckCircle2, Trash2, Eye, ShieldCheck,
+    LogOut, Bell, CreditCard, XCircle, ExternalLink,
+    FileText, Upload, CheckSquare, Phone,
+    UserCheck, LayoutDashboard, Loader2, CreditCard as PassportIcon, AlertCircle
+} from 'lucide-react';
+import { toast, Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+
+// --- Interfaces ---
+interface Document {
+    url?: string;
+    fileUrl?: string;
+    title?: string;
+    institute?: string;
+    isVerified?: boolean;
+    status?: string;
+    remarks?: string;
+}
+
+interface User {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    isApproved?: boolean;
+    passportNumber?: string;
+    phone?: string;
+    isActive?: boolean;
+    isPaid?: boolean;
+    paymentScreenshot?: string;
+    documents?: Document[];
+}
+
+interface Stats {
+    totalStudents: number;
+    totalUniversities: number;
+    totalRevenue: number;
+    pendingApprovals: number;
+}
+
+function useDebounce(value: string, delay: number) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+    return debouncedValue;
+}
+
+export default function AdminVIPDashboard() {
+    const router = useRouter();
+    const [activeTab, setActiveTab] = useState('Overview');
+    const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearch = useDebounce(searchQuery, 500);
+
+    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState<Stats | null>(null);
+    const [users, setUsers] = useState<User[]>([]);
+
+    const [processingId, setProcessingId] = useState<string | null>(null);
+    const [remarks, setRemarks] = useState<{ [key: string]: string }>({});
+    const [attestFiles, setAttestFiles] = useState<{ [key: string]: File }>({});
+
+    const fetchAdminData = useCallback(async () => {
+        setLoading(true);
+        try {
+            const [statsRes, usersRes] = await Promise.all([
+                api.get('/api/admin/stats'),
+                api.get(`/api/admin/students?search=${debouncedSearch}`)
+            ]);
+            setStats(statsRes.data);
+            setUsers(usersRes.data?.users || usersRes.data || []);
+        } catch (err) {
+            toast.error("Cloud Sync Interrupted");
+        } finally {
+            setLoading(false);
+        }
+    }, [debouncedSearch]);
+
+    useEffect(() => {
+        fetchAdminData();
+    }, [fetchAdminData]);
+
+    const handleApproveUser = async (userId: string) => {
+        try {
+            await api.put(`/api/admin/approve/${userId}`);
+            toast.success("User Access Authorized");
+            fetchAdminData();
+        } catch (err) {
+            toast.error("Approval Protocol Failed");
+        }
+    };
+
+    const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
+        try {
+            await api.patch(`/api/admin/user-status/${userId}`);
+            toast.success(`User ${currentStatus ? 'Deactivated' : 'Activated'}`);
+            setUsers(prev => prev.map(u => u._id === userId ? { ...u, isActive: !currentStatus } : u));
+        } catch (err) {
+            toast.error("Update Failed");
+        }
+    };
+
+    const handleDeleteUser = async (userId: string) => {
+        if (!window.confirm("CRITICAL: Permanent deletion cannot be reversed. Proceed?")) return;
+        try {
+            await api.delete(`/api/admin/delete-user/${userId}`);
+            toast.success("Identity Purged Successfully");
+            setUsers(prev => prev.filter(u => u._id !== userId));
+        } catch (err) {
+            toast.error("Deletion Failed");
+        }
+    };
+
+    const handleDeleteDocument = async (studentId: string, docIndex: number) => {
+        if (!window.confirm("Delete this document permanently?")) return;
+        try {
+            await api.delete(`/api/admin/delete-document/${studentId}/${docIndex}`);
+            toast.success("Document Removed");
+            fetchAdminData();
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || "Document Deletion Failed");
+        }
+    };
+
+    const handleDocumentAction = async (studentId: string, docIndex: number, action: 'verify' | 'reject') => {
+        const docKey = `${studentId}-${docIndex}`;
+        const adminRemarks = remarks[docKey];
+
+        if (action === 'verify' && !attestFiles[docKey]) {
+            return toast.error("Verification Slip Required for Approval");
+        }
+
+        if (action === 'reject' && (!adminRemarks || adminRemarks.length < 5)) {
+            return toast.error("Please provide detailed remarks for rejection");
+        }
+
+        setProcessingId(`${docKey}-${action}`);
+        const formData = new FormData();
+
+        if (attestFiles[docKey]) {
+            formData.append('attestedDoc', attestFiles[docKey]);
+        }
+
+        formData.append('remarks', adminRemarks || (action === 'verify' ? "Standard VIP Verification" : "Document Rejected by Admin"));
+        formData.append('docIndex', docIndex.toString());
+        formData.append('status', action === 'verify' ? 'Verified' : 'Rejected');
+
+        try {
+            await api.put(`/api/admin/verify-single-doc/${studentId}/${docIndex}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            toast.success(action === 'verify' ? "Document Authenticated" : "Document Rejected & Notified");
+            fetchAdminData();
+        } catch (err: any) {
+            toast.error(err.response?.data?.message || "Protocol Error");
+        } finally {
+            setProcessingId(null);
+        }
+    };
+
+    const handleConfirmPayment = async (userId: string) => {
+        try {
+            await api.put(`/api/admin/update-fee/${userId}`, { isPaid: true });
+            toast.success("Transaction Verified");
+            fetchAdminData();
+        } catch (err) {
+            toast.error("Payment Confirmation Failed");
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        router.push('/');
+    };
+
+    return (
+        <div className="flex min-h-screen bg-[#F8FAFC]">
+            <Toaster position="top-right" />
+            <aside className="w-72 bg-white border-r border-slate-100 hidden lg:flex flex-col fixed h-full z-20 shadow-sm">
+                <div className="p-8 flex items-center gap-3">
+                    <div className="h-10 w-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-lg">
+                        <ShieldCheck className="text-white" size={20} />
+                    </div>
+                    <span className="font-black text-xl tracking-tighter italic text-slate-900">Verification</span>
+                </div>
+                <nav className="flex-1 px-6 space-y-2">
+                    <TabButton active={activeTab === 'Overview'} icon={<LayoutDashboard size={18} />} label="Overview" onClick={() => setActiveTab('Overview')} />
+                    <TabButton active={activeTab === 'Payments'} icon={<CreditCard size={18} />} label="Payments" onClick={() => setActiveTab('Payments')} />
+                    <TabButton active={activeTab === 'Verification'} icon={<FileText size={18} />} label="Verification" onClick={() => setActiveTab('Verification')} />
+                </nav>
+                <div className="p-6">
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 px-5 py-4 text-rose-500 font-bold text-sm hover:bg-rose-50 rounded-2xl transition-all">
+                        <LogOut size={20} /> Logout
+                    </button>
+                </div>
+            </aside>
+
+            <main className="flex-1 ml-0 lg:ml-72 p-8">
+                <Header activeTab={activeTab} />
+                {activeTab === 'Overview' && (
+                    <div className="space-y-8 animate-in fade-in duration-500">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <StatCard title="Total Students" value={stats?.totalStudents} icon={<Users size={22} />} color="blue" loading={loading} />
+                            <StatCard title="Universities" value={stats?.totalUniversities} icon={<School size={22} />} color="indigo" loading={loading} />
+                            <StatCard title="Total Revenue" value={stats?.totalRevenue ? `PKR ${stats.totalRevenue.toLocaleString()}` : 'PKR 0'} icon={<Wallet size={22} />} color="emerald" loading={loading} />
+                            <StatCard title="Universities Pending" value={stats?.pendingApprovals} icon={<Clock size={22} />} color="amber" loading={loading} />
+                        </div>
+                        <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+                            <div className="p-8 border-b border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
+                                <h3 className="font-black text-slate-800 text-lg uppercase italic">Student Directory</h3>
+                                <div className="relative">
+                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                                    <input
+                                        type="text"
+                                        placeholder="Search by name or passport..."
+                                        className="pl-12 pr-4 py-3 bg-slate-50 rounded-xl text-sm outline-none w-64 md:w-96 font-medium focus:ring-2 ring-slate-100 transition-all"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <UserTable
+                                users={users}
+                                onAction={() => setActiveTab('Verification')}
+                                onToggleStatus={handleToggleStatus}
+                                onDeleteUser={handleDeleteUser}
+                                onApproveUser={handleApproveUser}
+                                loading={loading}
+                            />
+                        </div>
+                    </div>
+                )}
+                {activeTab === 'Verification' && (
+                    <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+                        {users.filter(u => u.role === 'student').length > 0 ? (
+                            users.filter(u => u.role === 'student').map((student) => (
+                                <VerificationCard
+                                    key={student._id}
+                                    student={student}
+                                    remarks={remarks}
+                                    setRemarks={setRemarks}
+                                    attestFiles={attestFiles}
+                                    setAttestFiles={setAttestFiles}
+                                    processingId={processingId}
+                                    handleDocumentAction={handleDocumentAction}
+                                    handleToggleStatus={handleToggleStatus}
+                                    handleDeleteUser={handleDeleteUser}
+                                    handleDeleteDocument={handleDeleteDocument}
+                                />
+                            ))
+                        ) : (
+                            <div className="text-center py-20 bg-white rounded-[2.5rem] border border-dashed border-slate-200">
+                                <p className="text-slate-400 font-bold italic">No verification tasks found.</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {activeTab === 'Payments' && (
+                    <PaymentSection users={users} onApprove={handleConfirmPayment} />
+                )}
+            </main>
+        </div>
+    );
+}
+
+function TabButton({ active, icon, label, onClick }: any) {
+    return (
+        <button onClick={onClick} className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl font-bold text-sm transition-all ${active ? 'bg-slate-900 text-white shadow-xl translate-x-2' : 'text-slate-400 hover:bg-slate-50'}`}>
+            {icon} {label}
+        </button>
+    );
+}
+
+function Header({ activeTab }: { activeTab: string }) {
+    const [adminName, setAdminName] = useState('Administrator');
+    useEffect(() => {
+        try { const u = JSON.parse(localStorage.getItem('user') || '{}'); if (u.name) setAdminName(u.name); } catch { /* keep default */ }
+    }, []);
+    return (
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+            <div>
+                <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase italic">{activeTab}</h1>
+                <p className="text-slate-400 font-bold text-[10px] tracking-[0.4em] uppercase mt-1">Global Verification Network</p>
+            </div>
+            <div className="flex items-center gap-4 bg-white p-2 pr-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div className="h-12 w-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black">{adminName.charAt(0).toUpperCase()}</div>
+                <div className="text-left">
+                    <p className="text-sm font-black text-slate-900">{adminName}</p>
+                    <p className="text-[10px] text-indigo-600 font-black uppercase">Root Administrator</p>
+                </div>
+                <div className="h-10 w-10 bg-slate-50 rounded-xl flex items-center justify-center ml-4 border border-slate-100 relative">
+                    <Bell size={18} className="text-slate-400" />
+                    <span className="absolute top-2 right-2 h-2 w-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function StatCard({ title, value, icon, color, loading }: any) {
+    const theme: any = {
+        blue: 'text-blue-600 bg-blue-50',
+        indigo: 'text-indigo-600 bg-indigo-50',
+        emerald: 'text-emerald-600 bg-emerald-50',
+        amber: 'text-amber-600 bg-amber-50',
+    };
+    return (
+        <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+            <div className="flex justify-between items-start">
+                <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{title}</p>
+                    {loading ? <div className="h-8 w-24 bg-slate-50 animate-pulse rounded-lg" /> : <h2 className="text-3xl font-black text-slate-900">{value ?? 0}</h2>}
+                </div>
+                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center ${theme[color]} group-hover:scale-110 transition-transform`}>
+                    {icon}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const UserTable = React.memo(({ users, onAction, onToggleStatus, onDeleteUser, onApproveUser, loading }: any) => {
+    if (loading) return <div className="p-20 flex justify-center"><Loader2 className="animate-spin text-slate-300" size={40} /></div>;
+    return (
+        <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+                <thead className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                    <tr>
+                        <th className="px-8 py-5">Identity & Contact</th>
+                        <th className="px-8 py-5">Credential</th>
+                        <th className="px-8 py-5">Approval</th>
+                        <th className="px-8 py-5">Status</th>
+                        <th className="px-8 py-5 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50">
+                    {users.map((u: User) => (
+                        <tr key={u._id} className="hover:bg-slate-50/50 transition-all">
+                            <td className="px-8 py-5">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 bg-slate-100 text-slate-900 rounded-xl flex items-center justify-center font-black text-xs">{u.name ? u.name[0] : 'U'}</div>
+                                    <div>
+                                        <p className="font-black text-slate-900 text-sm uppercase italic">{u.name}</p>
+                                        <p className="text-[10px] text-indigo-600 font-bold flex items-center gap-1">
+                                            <Phone size={10} /> {u.phone || 'N/A'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td className="px-8 py-5">
+                                <p className="text-[10px] font-black text-slate-600 flex items-center gap-1 uppercase">
+                                    <PassportIcon size={12} className="text-slate-400" /> {u.passportNumber || 'No Passport'}
+                                </p>
+                            </td>
+                            <td className="px-8 py-5">
+                                {u.role === 'student' ? (
+                                    <span className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-black uppercase">
+                                        <UserCheck size={14} /> Email verified
+                                    </span>
+                                ) : u.isApproved ? (
+                                    <span className="flex items-center gap-1.5 text-emerald-600 text-[10px] font-black uppercase">
+                                        <UserCheck size={14} /> Approved
+                                    </span>
+                                ) : (
+                                    <button onClick={() => onApproveUser(u._id)} className="flex items-center gap-1.5 bg-amber-50 text-amber-600 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase hover:bg-amber-600 hover:text-white transition-all">
+                                        <Clock size={12} /> Approve Now
+                                    </button>
+                                )}
+                            </td>
+                            <td className="px-8 py-5">
+                                <button onClick={() => onToggleStatus(u._id, u.isActive ?? true)} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase flex items-center gap-1.5 ${u.isActive === false ? 'bg-rose-50 text-rose-500' : 'bg-emerald-50 text-emerald-600'}`}>
+                                    {u.isActive === false ? <XCircle size={10} /> : <CheckCircle2 size={10} />}
+                                    {u.isActive === false ? 'Suspended' : 'Active'}
+                                </button>
+                            </td>
+                            <td className="px-8 py-5 text-right">
+                                <div className="flex justify-end gap-2">
+                                    <button onClick={onAction} className="p-2.5 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition-all shadow-sm"><Eye size={16} /></button>
+                                    <button onClick={() => onDeleteUser(u._id)} className="p-2.5 bg-white text-rose-500 border border-slate-100 rounded-xl hover:bg-rose-500 hover:text-white transition-all"><Trash2 size={16} /></button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+});
+UserTable.displayName = "UserTable";
+
+const VerificationCard = ({ student, remarks, setRemarks, attestFiles, setAttestFiles, processingId, handleDocumentAction, handleToggleStatus, handleDeleteUser, handleDeleteDocument }: any) => {
+    return (
+        <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl p-8 hover:border-indigo-100 transition-colors">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-slate-50 gap-4">
+                <div className="flex items-center gap-5">
+                    <div className="h-16 w-16 bg-slate-900 rounded-[1.25rem] flex items-center justify-center text-white font-black text-2xl shadow-xl">{student.name?.[0] || 'S'}</div>
+                    <div>
+                        <h4 className="text-xl font-black text-slate-900 uppercase italic">{student.name}</h4>
+                        <div className="flex flex-wrap gap-4 mt-2">
+                            <span className="text-[10px] font-black text-slate-400 uppercase">Passport: <b className="text-slate-900">{student.passportNumber}</b></span>
+                            <span className="text-[10px] font-black text-slate-400 uppercase">Mobile: <b className="text-indigo-600">{student.phone || 'N/A'}</b></span>
+                            <span className="text-[10px] font-black text-slate-400 uppercase">Docs: <b className="text-slate-900">{student.documents?.length || 0}</b></span>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex gap-3">
+                    <button onClick={() => handleToggleStatus(student._id, student.isActive)} className="px-6 py-3 bg-slate-50 text-slate-600 rounded-2xl text-[10px] font-black uppercase italic hover:bg-slate-100 transition-all">Toggle Access</button>
+                    <button onClick={() => handleDeleteUser(student._id)} className="px-6 py-3 bg-rose-50 text-rose-500 rounded-2xl text-[10px] font-black uppercase italic hover:bg-rose-500 hover:text-white transition-all">Delete Account</button>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {student.documents?.map((doc: any, idx: number) => {
+                    const docKey = `${student._id}-${idx}`;
+                    const url = doc.url || doc.fileUrl;
+                    const isRejected = doc.status === 'Rejected';
+                    const isVerified = doc.status === 'Verified';
+
+                    return (
+                        <div key={idx} className={`p-6 rounded-[2rem] border flex flex-col gap-5 relative transition-all ${isRejected ? 'bg-rose-50/30 border-rose-100' : isVerified ? 'bg-emerald-50/30 border-emerald-100' : 'bg-slate-50/50 border-slate-100'}`}>
+                            {(isRejected || isVerified) && (
+                                <div className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[9px] font-black uppercase z-10 shadow-sm ${isRejected ? 'bg-rose-500 text-white' : 'bg-emerald-500 text-white'}`}>
+                                    {doc.status}
+                                </div>
+                            )}
+                            <button onClick={() => handleDeleteDocument(student._id, idx)} className="absolute top-4 right-4 p-2.5 bg-white text-rose-500 rounded-xl shadow-sm border border-slate-100 hover:bg-rose-500 hover:text-white transition-all z-10" title="Remove Document">
+                                <Trash2 size={16} />
+                            </button>
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-white rounded-lg shadow-sm text-indigo-600"><FileText size={18} /></div>
+                                    <span className="font-black text-[11px] text-slate-700 uppercase">{doc.title || `Document ${idx + 1}`}</span>
+                                </div>
+                                <button onClick={() => window.open(url, '_blank')} className="text-indigo-600 hover:underline font-black text-[10px] uppercase mr-10">View Original</button>
+                            </div>
+                            <div className="h-48 w-full bg-white rounded-2xl border border-slate-200 overflow-hidden relative group">
+                                <img src={url} alt="preview" className="h-full w-full object-contain p-4" />
+                                <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <button onClick={() => window.open(url)} className="p-3 bg-white rounded-full text-slate-900 shadow-xl"><ExternalLink size={20} /></button>
+                                </div>
+                            </div>
+                            <textarea
+                                placeholder="Admin feedback/remarks (Required for rejection)..."
+                                className="w-full p-4 bg-white border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 ring-indigo-500/10 h-24 outline-none resize-none"
+                                value={remarks[docKey] || doc.remarks || ""}
+                                onChange={(e) => setRemarks({ ...remarks, [docKey]: e.target.value })}
+                            />
+                            <div className="flex flex-col gap-2">
+                                <label className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-dashed border-indigo-200 text-indigo-600 rounded-xl text-[10px] font-black cursor-pointer hover:bg-indigo-50 transition-all">
+                                    <Upload size={14} />
+                                    <span className="truncate max-w-[150px]">{attestFiles[docKey] ? attestFiles[docKey].name : 'Upload Attestation'}</span>
+                                    <input type="file" className="hidden" onChange={(e) => setAttestFiles({ ...attestFiles, [docKey]: e.target.files ? e.target.files[0] : null })} />
+                                </label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button disabled={processingId?.startsWith(docKey)} onClick={() => handleDocumentAction(student._id, idx, 'verify')} className="py-4 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 disabled:opacity-50 transition-all shadow-lg flex items-center justify-center gap-2">
+                                        {processingId === `${docKey}-verify` ? <Loader2 size={14} className="animate-spin" /> : <CheckSquare size={14} />} Verify
+                                    </button>
+                                    <button disabled={processingId?.startsWith(docKey)} onClick={() => handleDocumentAction(student._id, idx, 'reject')} className="py-4 bg-white text-rose-500 border border-rose-100 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-500 hover:text-white disabled:opacity-50 transition-all shadow-sm flex items-center justify-center gap-2">
+                                        {processingId === `${docKey}-reject` ? <Loader2 size={14} className="animate-spin" /> : <AlertCircle size={14} />} Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
+const PaymentSection = ({ users, onApprove }: any) => {
+    const pending = users.filter((u: any) => u.paymentScreenshot && !u.isPaid);
+    return (
+        <div className="bg-white rounded-[2.5rem] p-10 shadow-xl border border-slate-100 animate-in fade-in duration-500">
+            <div className="flex justify-between items-center mb-10">
+                <h3 className="text-2xl font-black italic uppercase tracking-tight">Revenue Clearance</h3>
+                <div className="h-2 w-24 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500 w-2/3"></div>
+                </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6">
+                {pending.length > 0 ? pending.map((student: User) => (
+                    <div key={student._id} className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-lg transition-all">
+                        <div className="flex items-center gap-5">
+                            <img src={student.paymentScreenshot} className="h-24 w-24 rounded-2xl object-cover cursor-pointer border-4 border-white shadow-md hover:scale-105 transition-transform" onClick={() => window.open(student.paymentScreenshot)} alt="Receipt" />
+                            <div>
+                                <p className="font-black text-slate-900 text-lg uppercase italic">{student.name}</p>
+                                <p className="text-[10px] text-slate-400 font-black tracking-widest uppercase mt-1 flex items-center gap-2">
+                                    <Clock size={14} className="text-amber-500" /> Awaiting Confirmation
+                                </p>
+                            </div>
+                        </div>
+                        <button onClick={() => onApprove(student._id)} className="w-full md:w-auto px-10 py-5 bg-emerald-600 text-white rounded-[1.25rem] font-black text-xs uppercase hover:bg-emerald-700 shadow-xl shadow-emerald-100 transition-all active:scale-95">
+                            Approve Transaction
+                        </button>
+                    </div>
+                )) : (
+                    <div className="py-24 text-center">
+                        <div className="inline-flex p-6 bg-slate-50 rounded-full mb-4 text-slate-200"><Wallet size={48} /></div>
+                        <p className="text-slate-300 font-black uppercase italic tracking-[0.3em]">Vault is balanced / No pending payments</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+</file>
+
+<file path="app/university/dashboard/page.tsx">
+"use client";
+
+import React, { useState, useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import api from '@/lib/api';
+import {
+    ShieldCheck, SearchCode, LayoutDashboard, Settings,
+    LogOut, Eye, Loader2, CheckCircle2, AlertCircle,
+    MessageSquare, Calendar, Fingerprint, Image as ImageIcon,
+    FileText, User, ChevronRight, XCircle
+} from 'lucide-react';
+import { toast, Toaster } from 'react-hot-toast';
+
+// --- PRODUCTION INTERFACES ---
+interface Document {
+    title?: string;
+    name?: string;
+    status?: 'Pending' | 'Verified' | 'Rejected';
+    fileUrl?: string;
+    url?: string;
+    verifySlip?: string;
+    verificationImg?: string;
+    adminScreenshot?: string;
+    adminSlip?: string;
+    remarks?: string;
+    comment?: string;
+    adminNote?: string;
+}
+
+interface StudentData {
+    fullName?: string;
+    name?: string;
+    passportNumber: string;
+    university?: string;
+    isAuthentic?: boolean;
+    documents?: Document[];
+    remarks?: string;
+    adminScreenshot?: string;
+    verifySlip?: string;
+    slipUrl?: string;
+}
+
+export default function UniversityDashboard() {
+    const router = useRouter();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [student, setStudent] = useState<StudentData | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleLogout = useCallback(() => {
+        localStorage.clear();
+        toast.success("Security Session Ended");
+        setTimeout(() => router.replace('/'), 500);
+    }, [router]);
+
+    const handlePassportSearch = useCallback(async () => {
+        const query = searchQuery.trim().toUpperCase();
+        if (!query) {
+            toast.error("Please enter a valid passport number");
+            return;
+        }
+
+        setLoading(true);
+        setStudent(null);
+
+        try {
+            const res = await api.post(`/api/university/search-student`, { passportNumber: query });
+
+            if (res.data.success && res.data.data) {
+                setStudent(res.data.data);
+                toast.success("Identity Records Decrypted");
+            } else {
+                toast.error(res.data.msg || "No record matching this ID");
+            }
+        } catch (err: any) {
+            const errorMsg = err.response?.data?.msg || "Network Error: Access Denied";
+            toast.error(errorMsg);
+        } finally {
+            setLoading(false);
+        }
+    }, [searchQuery]);
+
+    const verificationDate = useMemo(() => new Date().toLocaleDateString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric'
+    }), []);
+
+    return (
+        <div className="flex min-h-screen bg-[#F8FAFC] selection:bg-indigo-100 font-sans antialiased text-slate-900">
+            <Toaster position="top-right" reverseOrder={false} />
+
+            <aside className="w-72 bg-[#020617] m-5 rounded-[2.5rem] flex flex-col p-8 text-white shadow-2xl hidden lg:flex border border-white/5 shrink-0 sticky top-5 h-[calc(100vh-40px)]">
+                <div className="flex items-center gap-3 mb-12 px-2">
+                    <div className="h-11 w-11 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                        <ShieldCheck size={24} />
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-black tracking-tighter italic leading-tight">Verification_CHECK</h2>
+                        <span className="text-[8px] text-indigo-400 font-bold uppercase tracking-[0.2em]">Authority Node</span>
+                    </div>
+                </div>
+
+                <nav className="space-y-2 flex-1">
+                    <NavItem icon={<SearchCode size={18} />} label="Verification" active />
+                    <NavItem icon={<LayoutDashboard size={18} />} label="Analytics" />
+                    <NavItem icon={<Settings size={18} />} label="System Access" />
+                </nav>
+
+                <button
+                    onClick={handleLogout}
+                    className="group flex items-center gap-3 text-slate-500 hover:text-rose-400 transition-all font-black text-[10px] uppercase tracking-widest px-6 py-4 hover:bg-rose-500/5 rounded-2xl border border-transparent hover:border-rose-500/10"
+                >
+                    <LogOut size={16} className="group-hover:-translate-x-1 transition-transform" />
+                    Terminate Session
+                </button>
+            </aside>
+
+            {/* MAIN CONTENT */}
+            <main className="flex-1 p-6 lg:p-12 overflow-y-auto">
+                <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight italic">Terminal Access</h1>
+                        <p className="text-indigo-600 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">LHR-NODE-402 // UNIVERSITY AUTH_REQ</p>
+                    </div>
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 px-5 py-2.5 rounded-full flex items-center gap-3">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span className="text-emerald-700 font-black text-[10px] uppercase tracking-widest">System Online</span>
+                    </div>
+                </header>
+
+                <div className="max-w-4xl mb-12">
+                    <div className="bg-white p-2 rounded-[2rem] shadow-2xl shadow-slate-200/60 border border-slate-100 flex items-center gap-2 group transition-all focus-within:ring-4 focus-within:ring-indigo-500/5">
+                        <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+                            {loading ? <Loader2 className="animate-spin" size={22} /> : <Fingerprint size={26} />}
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Enter Passport ID (e.g. AB123456)"
+                            className="flex-1 bg-transparent border-none outline-none text-lg font-bold text-slate-800 placeholder:text-slate-300 tracking-widest uppercase px-2"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handlePassportSearch()}
+                        />
+                        <button
+                            onClick={handlePassportSearch}
+                            disabled={loading || !searchQuery}
+                            className="bg-indigo-600 hover:bg-slate-900 text-white px-10 py-4 rounded-[1.4rem] font-black uppercase tracking-widest text-[11px] transition-all disabled:opacity-30 shadow-lg shadow-indigo-200 active:scale-95"
+                        >
+                            {loading ? 'Decrypting...' : 'Scan Matrix'}
+                        </button>
+                    </div>
+                </div>
+
+                {student ? (
+                    <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-8">
+
+                        {/* PROFILE CARD */}
+                        <div className="bg-slate-950 rounded-[3rem] p-10 text-white flex flex-col md:flex-row items-center justify-between border border-white/10 relative overflow-hidden shadow-2xl">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[100px] -z-0"></div>
+
+                            <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                                <div className="h-24 w-24 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-[2rem] flex items-center justify-center text-4xl font-black rotate-6 shadow-2xl border-4 border-white/10">
+                                    {(student.fullName || student.name || '?')[0]}
+                                </div>
+                                <div className="text-center md:text-left">
+                                    <p className="text-indigo-400 font-black text-[10px] uppercase tracking-[0.4em] mb-2">Authenticated Profile</p>
+                                    <h2 className="text-4xl font-black italic tracking-tighter uppercase leading-none mb-4">
+                                        {student.fullName || student.name}
+                                    </h2>
+                                    <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                                        <div className="bg-white/5 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-xl text-[10px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-2">
+                                            <User size={12} className="text-indigo-400" /> {student.passportNumber}
+                                        </div>
+                                        <div className="bg-white/5 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-xl text-[10px] font-bold text-slate-300 tracking-widest uppercase">
+                                            {student.university || 'Global Institute'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 md:mt-0 relative z-10">
+                                <div className={`px-10 py-4 rounded-[1.8rem] border-2 shadow-2xl backdrop-blur-sm ${student.isAuthentic !== false ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-rose-500/10 border-rose-500/30 text-rose-400'}`}>
+                                    <p className="text-lg font-black italic uppercase flex items-center gap-3">
+                                        {student.isAuthentic !== false ? <CheckCircle2 size={24} /> : <AlertCircle size={24} />}
+                                        {student.isAuthentic !== false ? 'Verified' : 'Flagged'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CONTENT GRID */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            {/* DOCUMENTS COLUMN */}
+                            <div className="lg:col-span-8 space-y-6">
+                                <h3 className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-slate-400 px-2">
+                                    <FileText size={18} className="text-indigo-600" /> Secure Credentials
+                                </h3>
+
+                                {student.documents && student.documents.length > 0 ? (
+                                    student.documents.map((doc, i) => {
+                                        const adminSlipUrl = doc.verifySlip || doc.verificationImg || doc.adminScreenshot || doc.adminSlip || student.adminScreenshot || student.verifySlip || student.slipUrl;
+                                        const isRejected = doc.status === 'Rejected';
+
+                                        return (
+                                            <div key={i} className={`bg-white p-8 rounded-[2.5rem] border ${isRejected ? 'border-rose-100 shadow-rose-50' : 'border-slate-100 shadow-sm'} hover:shadow-xl hover:border-indigo-100 transition-all group`}>
+                                                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+                                                    <div className="flex items-center gap-5">
+                                                        <div className={`h-16 w-16 ${isRejected ? 'bg-rose-50 text-rose-300' : 'bg-slate-50 text-slate-300'} rounded-2xl flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-inner`}>
+                                                            <FileText size={28} />
+                                                        </div>
+                                                        <div>
+                                                            <p className="font-black text-slate-900 text-lg italic uppercase tracking-tight leading-none mb-1">
+                                                                {doc.title || doc.name || `Asset-0${i + 1}`}
+                                                            </p>
+                                                            <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${isRejected ? 'bg-rose-50 text-rose-500' : 'bg-emerald-50 text-emerald-500'}`}>
+                                                                {doc.status || 'System Verified'}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {adminSlipUrl && (
+                                                            <a href={adminSlipUrl} target="_blank" rel="noopener noreferrer"
+                                                                className="flex-1 sm:flex-none h-12 px-6 bg-emerald-500 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-600 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-emerald-200">
+                                                                <ImageIcon size={16} /> Admin Proof
+                                                            </a>
+                                                        )}
+                                                        <a href={doc.fileUrl || doc.url} target="_blank" rel="noopener noreferrer"
+                                                            className="flex-1 sm:flex-none h-12 px-6 bg-slate-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-slate-200">
+                                                            <Eye size={16} /> View Original
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div className="mt-6 pt-6 border-t border-slate-50 flex gap-4 items-start">
+                                                    <div className={`mt-1 ${isRejected ? 'bg-rose-50' : 'bg-indigo-50'} p-2 rounded-lg`}>
+                                                        {isRejected ? <XCircle size={16} className="text-rose-600" /> : <MessageSquare size={16} className="text-indigo-600" />}
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Authority Remarks:</p>
+                                                        <p className={`text-sm font-medium italic leading-relaxed p-4 rounded-2xl border ${isRejected ? 'bg-rose-50/30 border-rose-100 text-rose-700' : 'bg-slate-50/50 border-slate-100 text-slate-600'}`}>
+                                                            "{doc.remarks || doc.comment || doc.adminNote || (isRejected ? "The document failed the verification check." : "The digital asset has been successfully cross-referenced with the physical registry.")}"
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div className="bg-white rounded-[3rem] py-24 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 text-slate-300">
+                                        <SearchCode size={48} className="mb-4 opacity-20" />
+                                        <p className="font-black text-xs uppercase tracking-[0.3em]">No Document Trace Found</p>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* SIDE INFO COLUMN */}
+                            <div className="lg:col-span-4 space-y-6">
+                                <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col sticky top-8">
+                                    <div className="flex items-center gap-3 mb-8">
+                                        <div className="h-10 w-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
+                                            <ShieldCheck size={20} />
+                                        </div>
+                                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-800 italic">Audit Summary</h3>
+                                    </div>
+
+                                    <div className="relative group">
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                                        <div className="relative bg-slate-50 p-6 rounded-2xl border-l-4 border-indigo-600 italic text-slate-700 text-sm leading-relaxed">
+                                            "{student.remarks || "Global verification status: ACTIVE. The candidate's credentials have been updated in the decentralized registry."}"
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-10 space-y-4">
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                                            <span className="text-[9px] font-black text-slate-400 uppercase">Ver. Date</span>
+                                            <span className="text-[11px] font-bold text-slate-900 flex items-center gap-2">
+                                                <Calendar size={14} className="text-indigo-500" /> {verificationDate}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                                            <span className="text-[9px] font-black text-slate-400 uppercase">Node ID</span>
+                                            <span className="text-[11px] font-bold text-slate-900 uppercase">SSL-ENCRYPTED</span>
+                                        </div>
+                                    </div>
+
+                                    <button className="mt-8 w-full py-4 bg-slate-950 text-white rounded-[1.4rem] font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-600 transition-colors shadow-lg active:scale-[0.98]">
+                                        Download Audit Log
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    /* EMPTY STATE */
+                    <div className="flex flex-col items-center justify-center py-48 opacity-40 border-4 border-dashed border-slate-100 rounded-[4rem]">
+                        <div className="relative mb-6">
+                            <SearchCode size={80} className="text-slate-200 animate-pulse" />
+                            <div className="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full"></div>
+                        </div>
+                        <p className="text-2xl font-black italic uppercase tracking-[0.3em] text-slate-300 text-center">
+                            Awaiting Identity Input<br />
+                            <span className="text-sm not-italic font-bold tracking-widest opacity-50">System ready for real-time verification</span>
+                        </p>
+                    </div>
+                )}
+            </main>
+        </div>
+    );
+}
+
+// NavItem Component - Isolated for cleaner main component
+function NavItem({ icon, label, active = false }: { icon: React.ReactNode, label: string, active?: boolean }) {
+    return (
+        <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl cursor-pointer transition-all duration-300 group ${active
+            ? 'bg-indigo-600 text-white shadow-2xl shadow-indigo-500/40'
+            : 'text-slate-500 hover:bg-white/5 hover:text-white'
+            }`}>
+            <div className={`${active ? 'scale-110' : 'group-hover:scale-110'} transition-transform`}>
+                {icon}
+            </div>
+            <span className="font-black text-[10px] uppercase tracking-widest">{label}</span>
+            {active && <ChevronRight size={14} className="ml-auto opacity-50" />}
+        </div>
+    );
+}
+</file>
+
+</files>
