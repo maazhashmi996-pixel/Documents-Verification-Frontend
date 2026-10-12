@@ -282,3 +282,27 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .admin-shell *, .admin-shell *::before, .admin-shell *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Student portal: shared motion + dashboard surface */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.float-soft { animation: float-soft 3.2s ease-in-out infinite; }
+
+.dash-bg {
+  background:
+    radial-gradient(900px 420px at 100% -10%, #e3f1fb 0%, transparent 60%),
+    radial-gradient(700px 360px at 0% 110%, #e2f5f2 0%, transparent 60%),
+    var(--pearl);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .float-soft { animation: none; }
+}
