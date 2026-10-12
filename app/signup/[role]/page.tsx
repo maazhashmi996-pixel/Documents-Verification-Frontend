@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { toast, Toaster } from 'react-hot-toast';
-import { User, Mail, Lock, Phone, Contact2, School, ArrowRight, Loader2, MailCheck, ShieldCheck } from 'lucide-react';
+import { User, Mail, Lock, Phone, Contact2, School, ArrowRight, Loader2, MailCheck } from 'lucide-react';
 import api from '@/lib/api';
 import { ROLES, isRole } from '@/lib/roles';
 import AuthLayout from '@/Components/AuthLayout';
@@ -35,21 +35,6 @@ export default function RoleSignupPage() {
     const role = ROLES[params.role];
     const set = (key: keyof typeof form) => (value: string) => setForm((f) => ({ ...f, [key]: value }));
     const submitClass = 'w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl font-semibold text-white transition hover:brightness-110 disabled:opacity-70 disabled:cursor-not-allowed';
-
-    if (role.key === 'admin') {
-        return (
-            <AuthLayout role={role} heading="Administrator access">
-                <div className="space-y-5">
-                    <div className="rounded-2xl border border-line bg-pearl p-5">
-                        <ShieldCheck className="mb-3" size={25} style={{ color: role.accentDeep }} />
-                        <h2 className="text-base font-bold text-ink">Administrator accounts are provisioned securely.</h2>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-soft">Public administrator registration is disabled to prevent unauthorized access to the verification registry. Ask the system owner to provision an administrator account.</p>
-                    </div>
-                    <Link href="/login/admin" className={submitClass} style={{ background: role.solid }}>Go to administrator sign in <ArrowRight size={17} /></Link>
-                </div>
-            </AuthLayout>
-        );
-    }
 
     // ---------- Step 1: details ----------
     const handleSignup = async (e: React.FormEvent) => {
